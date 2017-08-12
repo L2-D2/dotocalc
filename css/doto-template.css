@@ -5,3 +5,12 @@ body {
   padding: 3rem 1.5rem;
   text-align: center;
 }
+
+.box {
+  border-style: solid;
+}
+
+.itemSpotChild {
+  border: 4rem;
+  margin: 1rem;
+}
