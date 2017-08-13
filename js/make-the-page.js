@@ -39,8 +39,12 @@ function makeLvlSliders() {
     max: 25,
     min: 1,
     value: 1
-  })
+  });
 };
+
+function helpLvlSliders() {
+  // $("#yourLevelSlider").children().("ID", "yourLevelSlider")
+}
 
 $(document).ready( function() {
   makeLvlSliders();
@@ -49,5 +53,11 @@ $(document).ready( function() {
   makeItemOptions(".itemDrop");
   $(".itemDrop").selectmenu();
   $(".heroDrop").selectmenu();
+  $("#yourLevelSlider").on("slide", function(event, ui) {
+    $("#yourLevel").text(ui.value);
+  });
+  $("#theirLevelSlider").on("slide", function(event, ui) {
+    $("#theirLevel").text(ui.value);
+  });
 
 });

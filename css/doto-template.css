@@ -8,9 +8,21 @@ body {
 
 .box {
   border-style: solid;
+  margin: 2rem 1rem;
+
 }
 
 .itemSpotChild {
   border: 4rem;
   margin: 1rem;
 }
+
+.lvlSlider {
+  margin: 1.5rem 1rem;
+}
+
+/*p {
+  font-size: 32pt;
+  color: red;
+  margin: 0;
+}*/
