@@ -56,18 +56,22 @@
 			<div class="row">
 				<div id="you" class="full-hero col-lg-6">
 			    <h2>Pick a Hero!</h2>
-					<div class="row">
-						<div class="col-sm-4">
-						  <select class="heroDrop">
-						    <!-- Filled With Jquery -->
-						  </select>
-						</div>
-						<div class="col-sm-2">
-							<p class="box" id="yourLevel">1</p>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-2 container-fluid">
+								<p class="box" id="yourLevel">1</p>
+							</div>
+							<div class="col-sm-2 container-fluid">
+							  <select class="heroDrop">
+							    <!-- Filled With Jquery -->
+							  </select>
+							</div>
+							<div id="yourAttrSpot" class="col-sm-2 container-fluid">
+								<!-- Attributes -->
+							</div>
 						</div>
 					</div>
 				  <div id="yourLevelSlider" class="lvlSlider"></div>
-				  <!-- Attributes -->
 				  <h3>Pick your Items!</h3>
 				  <div class="itemSpot">
 				  </div>
@@ -86,17 +90,19 @@
 				<div id="them" class="full-hero col-lg-6">
 					<h2>Pick an Enemy!</h2>
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-2">
+							<p class="box" id="theirLevel">1</p>
+						</div>
+						<div class="col-sm-2">
 						  <select class="heroDrop">
 						    <!-- Filled With Jquery -->
 						  </select>
 						</div>
-						<div class="col-sm-2">
-							<p class="box" id="theirLevel">1</p>
+						<div id="theirAttrSpot" class="col-sm-2">
+							<!-- Attributes -->
 						</div>
 					</div>
 				  <div id="theirLevelSlider" class="lvlSlider"></div>
-				  <!-- Attributes -->
 				  <h3>Pick their Items!</h3>
 				  <div class="itemSpot">
 

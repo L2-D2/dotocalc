@@ -1,25 +1,25 @@
-function makeHeroOptions(name) {
+function makeHeroOptions() {
   $.getJSON("json/heroes.json").done( function(data) {
-    var theSelect = $(name);
+    // var theSelect = $(name);
     $.each(data["DOTAHeroes"], function() {
       if (this["HeroID"]) {
         var hero = this;
         var heroNum = hero["HeroID"];
-        $(theSelect).append("<option value=" + heroNum + ">" + hero["workshop_guide_name"] + "</option>");
+        $(".heroDrop").append("<option value=" + heroNum + ">" + hero["workshop_guide_name"] + "</option>");
       };
     });
   });
 };
 
-function makeItemOptions(name) {
+function makeItemOptions() {
   $.getJSON("json/items.json").done( function(data) {
-    var theSelect = $(name)
+    // var theSelect = $(name)
     $.each(data["DOTAAbilities"], function() {
       var itemName = this["ItemAliases"] || Object.keys(this);
       if (this["ID"] && !this["ItemRecipe"] && (itemName != "paint")) {
         var item = this;
         var itemNum = item["ID"];
-        $(theSelect).append("<option value=" + itemNum + ">" + itemName + "</option>");
+        $(".itemDrop").append("<option value=" + itemNum + ">" + itemName + "</option>");
       };
     });
   });
@@ -42,22 +42,43 @@ function makeLvlSliders() {
   });
 };
 
-function helpLvlSliders() {
-  // $("#yourLevelSlider").children().("ID", "yourLevelSlider")
+function updateAttrs(id) {
+
+}
+
+function makeAttrs() {
+  var html = `
+  <div class="row">
+    <p class="str">0</p>
+  </div>
+  <div class="row"
+    <p class="agi">0</p>
+    </div>
+    <div class="row"
+    <p class="int">0</p>
+    </div>
+  </div>`
+  $("#yourAttrSpot").append(html);
+  $("#theirAttrSpot").append(html);
 }
 
 $(document).ready( function() {
   makeLvlSliders();
   makeItemSelects();
-  makeHeroOptions(".heroDrop");
-  makeItemOptions(".itemDrop");
+  makeHeroOptions();
+  makeItemOptions();
   $(".itemDrop").selectmenu();
   $(".heroDrop").selectmenu();
+  makeAttrs();
   $("#yourLevelSlider").on("slide", function(event, ui) {
+    var hero = $()
     $("#yourLevel").text(ui.value);
+    updateAttrs("#");
   });
   $("#theirLevelSlider").on("slide", function(event, ui) {
     $("#theirLevel").text(ui.value);
+    updateAttrs();
   });
+
 
 });
