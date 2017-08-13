@@ -5,7 +5,7 @@ function makeHeroOptions() {
       if (this["HeroID"]) {
         var hero = this;
         var heroNum = hero["HeroID"];
-        $(".heroDrop").append("<option value=" + heroNum + ">" + hero["workshop_guide_name"] + "</option>");
+        $(".heroSelect").append("<option value=" + heroNum + ">" + hero["workshop_guide_name"] + "</option>");
       };
     });
   });
@@ -28,8 +28,8 @@ function makeItemOptions() {
 function makeItemSelects() {
   $(".itemSpot").append('<div class="row"></div>');
   for (let i = 0; i < 6; i++) {
-    $(".itemSpot").children().append('<div class="itemSpotChild col-sm-2"></div>');
-    i == 2 ? $(".itemSpot").children().append('<div class="w-100"></div>') : null;
+    $(".itemSpot").children().append('<div class="itemSpotChild col"></div>');
+    // i == 2 ? $(".itemSpot").children().append('<div class="w-100"></div>') : null;
   };
   $(".itemSpotChild").append('<select class="itemDrop"></select>');
 };
@@ -82,7 +82,7 @@ $(document).ready( function() {
   makeHeroOptions();
   makeItemOptions();
   $(".itemDrop").selectmenu();
-  $(".heroDrop").selectmenu();
+  $(".heroSelect").selectmenu();
   makeAttrs();
   $("#yourLevelSlider").on("slide", function(event, ui) {
     var hero = $()

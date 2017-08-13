@@ -52,7 +52,7 @@
       </div>
     </nav><!--navbar-->
 
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div id="you" class="full-hero col-lg-6">
 			    <h2>Pick a Hero!</h2>
@@ -61,8 +61,8 @@
 							<div class="col">
 								<p class="box" id="yourLevel">1</p>
 							</div>
-							<div class="col">
-							  <select class="heroDrop">
+							<div class="col heroDrop">
+							  <select class="heroSelect">
 							    <!-- Filled With Jquery -->
 							  </select>
 							</div>
@@ -89,17 +89,19 @@
 				</div><!-- you -->
 				<div id="them" class="full-hero col-lg-6">
 					<h2>Pick an Enemy!</h2>
-					<div class="row">
-						<div class="col">
-							<p class="box" id="theirLevel">1</p>
-						</div>
-						<div class="col">
-						  <select class="heroDrop">
-						    <!-- Filled With Jquery -->
-						  </select>
-						</div>
-						<div id="theirAttrSpot" class="col">
-							<!-- Attributes -->
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col">
+								<p class="box" id="theirLevel">1</p>
+							</div>
+							<div class="col heroDrop">
+							  <select class="heroSelect">
+							    <!-- Filled With Jquery -->
+							  </select>
+							</div>
+							<div id="theirAttrSpot" class="col">
+								<!-- Attributes -->
+							</div>
 						</div>
 					</div>
 				  <div id="theirLevelSlider" class="lvlSlider"></div>
