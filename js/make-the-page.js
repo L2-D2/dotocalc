@@ -49,15 +49,29 @@ function updateAttrs(id) {
 function makeAttrs() {
   var html = `
   <div class="row">
-    <p class="str">0</p>
+    <div class="col">
+      <p class="str">0</p>
+    </div>
+    <div class="col">
+      str
+    </div>
   </div>
-  <div class="row"
-    <p class="agi">0</p>
+  <div class="row">
+    <div class="col">
+      <p class="agi">0</p>
     </div>
-    <div class="row"
-    <p class="int">0</p>
+    <div class="col">
+      agi
     </div>
-  </div>`
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="int">0</p>
+    </div>
+    <div class="col">
+      int
+    </div>
+  </div>`;
   $("#yourAttrSpot").append(html);
   $("#theirAttrSpot").append(html);
 }
