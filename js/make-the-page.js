@@ -27,10 +27,10 @@ function makeItemOptions() {
 
 function makeItemSelects() {
   $(".itemSpot").append('<div class="row"></div>');
-  $(".itemSpot").append('<div class="row"></div>');
-  $(".itemSpot").children().append('<div class="itemSpotChild col-sm-2"></div>');
-  $(".itemSpot").children().append('<div class="itemSpotChild col-sm-2"></div>');
-  $(".itemSpot").children().append('<div class="itemSpotChild col-sm-2"></div>');
+  for (let i = 0; i < 6; i++) {
+    $(".itemSpot").children().append('<div class="itemSpotChild col-sm-2"></div>');
+    i == 2 ? $(".itemSpot").children().append('<div class="w-100"></div>') : null;
+  };
   $(".itemSpotChild").append('<select class="itemDrop"></select>');
 };
 
