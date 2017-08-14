@@ -18,8 +18,10 @@ function calc_level_stats(hero, level) {
 function find_hero_base_stats(hero) {
   var base_stats = [];
   $.getJSON("json/heroes.json").done( function(data) {
-    var thisHero;
-    $.each(data["DOTAHeroes"]) this.HeroID == hero ? {thisHero = this; break;};
+    var thisHero = [];
+    $.each(data["DOTAHeroes"], function() {
+      this.HeroID == hero ? thisHero = this : null;
+    });
     base_stats == [
       thisHero.AttributeBaseStrength,
       thisHero.AttributeBaseAgility,

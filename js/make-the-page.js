@@ -1,3 +1,5 @@
+const ATTRIBUTES = ["str", "agi", "int"]
+
 function makeHeroOptions() {
   $.getJSON("json/heroes.json").done( function(data) {
     // var theSelect = $(name);
@@ -42,39 +44,33 @@ function makeLvlSliders() {
   });
 };
 
-function updateAttrs(id) {
+function updateAttrs(whom, lvl) {
+  var spot = "#"+whom+"attrSpot";
+  var hero = $(whom + " .heroSelect option:selected" ).val();
+  var stats = calc_level_stats(hero, lvl);
+  stats.forEach(function(val, i) {
+    $(spot).find("p ."+ATTRIBUTES[i]).text(val);
+  });
+};
 
-}
-
-function makeAttrs() {
-  var html = `
-  <div class="row">
-    <div class="col">
-      <p class="str">0</p>
-    </div>
-    <div class="col">
-      str
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <p class="agi">0</p>
-    </div>
-    <div class="col">
-      agi
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <p class="int">0</p>
-    </div>
-    <div class="col">
-      int
-    </div>
-  </div>`;
-  $("#yourAttrSpot").append(html);
-  $("#theirAttrSpot").append(html);
-}
+function makeAttrs(whom) {
+  var spot = "#"+whom+"AttrSpot";
+  for (var i = 0; i < 3; i++) {
+    $(spot).append('<div class="row '+ATTRIBUTES[i]+'"></div>');
+    for (var j = 0; j < 2; j++) {
+      $(spot+" > .row")
+        .find(ATTRIBUTES[i])
+        .append('<div class="col"></div>');
+      j == 0 ? (
+        $(spot+"> .row "+ATTRIBUTES[i]+" > .col")
+          .append("<p class="+ATTRIBUTES[i]+">0</p>")
+      ) : (
+        $(spot+"> .row "+ATTRIBUTES[i]+" > .col")
+          .append("<p>"+ATTRIBUTES[i]+"</p>")
+       );
+    };
+  };
+};
 
 $(document).ready( function() {
   makeLvlSliders();
@@ -83,15 +79,17 @@ $(document).ready( function() {
   makeItemOptions();
   $(".itemDrop").selectmenu();
   $(".heroSelect").selectmenu();
-  makeAttrs();
-  $("#yourLevelSlider").on("slide", function(event, ui) {
-    var hero = $()
+  makeAttrs("you");
+  makeAttrs("them");
+
+  $("#yourLevelSlider").on("slidechange", function(event, ui) {
     $("#yourLevel").text(ui.value);
-    updateAttrs("#");
+    updateAttrs("you", ui.value);
   });
+
   $("#theirLevelSlider").on("slide", function(event, ui) {
     $("#theirLevel").text(ui.value);
-    updateAttrs();
+    updateAttrs("them", ui.value);
   });
 
 
