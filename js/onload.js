@@ -63,7 +63,7 @@ function makeAttrs(whom) {
   };
 };
 
-$(document).onLoad( function() {
+window.onload =  function() {
   makeLvlSliders();
   makeItemSelects();
   makeHeroOptions();
@@ -73,7 +73,4 @@ $(document).onLoad( function() {
   makeAttrs("you");
   makeAttrs("them");
 
-
-
-
-});
+};

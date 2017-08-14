@@ -8,7 +8,8 @@ function updateAttrs(whom, lvl) {
 };
 
 
-$(document).ready( function {
+$(document).ready( function() {
+
   $("#yourLevelSlider").on("slidechange", function(event, ui) {
     $("#yourLevel").text(ui.value);
     updateAttrs("you", ui.value);
@@ -18,4 +19,5 @@ $(document).ready( function {
     $("#theirLevel").text(ui.value);
     updateAttrs("them", ui.value);
   });
+  
 });
