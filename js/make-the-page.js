@@ -1,4 +1,4 @@
-const ATTRIBUTES = ["str", "agi", "int"]
+const ATTRS = ["str", "agi", "int"]
 
 function makeHeroOptions() {
   $.getJSON("json/heroes.json").done( function(data) {
@@ -49,26 +49,26 @@ function updateAttrs(whom, lvl) {
   var hero = $(whom + " .heroSelect option:selected" ).val();
   var stats = calc_level_stats(hero, lvl);
   stats.forEach(function(val, i) {
-    $(spot).find("p ."+ATTRIBUTES[i]).text(val);
+    $(spot).find("p ."+ATTRS[i]).text(val);
   });
 };
 
 function makeAttrs(whom) {
   var spot = "#"+whom+"AttrSpot";
   for (var i = 0; i < 3; i++) {
-    $(spot).append('<div class="row '+ATTRIBUTES[i]+'"></div>');
+    $(spot).append('<div class="row '+ATTRS[i]+'"></div>');
     for (var j = 0; j < 2; j++) {
-      $(spot+" > .row")
-        .find(ATTRIBUTES[i])
-        .append('<div class="col"></div>');
-      j == 0 ? (
-        $(spot+"> .row "+ATTRIBUTES[i]+" > .col")
-          .append("<p class="+ATTRIBUTES[i]+">0</p>")
-      ) : (
-        $(spot+"> .row "+ATTRIBUTES[i]+" > .col")
-          .append("<p>"+ATTRIBUTES[i]+"</p>")
-       );
-    };
+      $(spot)
+        .find(".row."+ATTRS[i])
+        .append('<div class="col j'+j+'"></div>');
+      };
+    $(spot)
+      .find(".row."+ATTRS[i]+" > .col.j0")
+      .append("<p class="+ATTRS[i]+">0</p>")
+
+    $(spot)
+      .find(".row."+ATTRS[i]+" > .col.j1")
+      .append("<p>"+ATTRS[i]+"</p>")
   };
 };
 
