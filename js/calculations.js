@@ -4,7 +4,7 @@ function final_armor(base, agi, tower, aura_armor, reduction) {
   return armor;
 };
 
-function find_level_stats(hero, level) {
+function calc_level_stats(hero, level) {
   // should be an array of [str,agi,int,str_gain,agi_gain,int_gain]
   var base_stats = find_hero_base_stats(hero);
   var new_stats = [
