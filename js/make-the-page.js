@@ -44,15 +44,6 @@ function makeLvlSliders() {
   });
 };
 
-function updateAttrs(whom, lvl) {
-  var spot = "#"+whom+"attrSpot";
-  var hero = $(whom + " .heroSelect option:selected" ).val();
-  var stats = calc_level_stats(hero, lvl);
-  stats.forEach(function(val, i) {
-    $(spot).find("p ."+ATTRS[i]).text(val);
-  });
-};
-
 function makeAttrs(whom) {
   var spot = "#"+whom+"AttrSpot";
   for (var i = 0; i < 3; i++) {
@@ -72,7 +63,7 @@ function makeAttrs(whom) {
   };
 };
 
-$(document).ready( function() {
+$(document).onLoad( function() {
   makeLvlSliders();
   makeItemSelects();
   makeHeroOptions();
@@ -82,15 +73,7 @@ $(document).ready( function() {
   makeAttrs("you");
   makeAttrs("them");
 
-  $("#yourLevelSlider").on("slidechange", function(event, ui) {
-    $("#yourLevel").text(ui.value);
-    updateAttrs("you", ui.value);
-  });
 
-  $("#theirLevelSlider").on("slide", function(event, ui) {
-    $("#theirLevel").text(ui.value);
-    updateAttrs("them", ui.value);
-  });
 
 
 });
