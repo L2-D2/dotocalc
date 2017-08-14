@@ -12,24 +12,27 @@ function calc_level_stats(hero, level) {
     base_stats[1]+(base_stats[5]*level),
     base_stats[2]+(base_stats[6]*level)
   ];
+  // console.log("calc base "+ base_stats);
   return new_stats;
 };
 
 function find_hero_base_stats(hero) {
-  var base_stats = [];
+  var base_stats;
+  var thisHero;
   $.getJSON("json/heroes.json").done( function(data) {
-    var thisHero = [];
     $.each(data["DOTAHeroes"], function() {
       this.HeroID == hero ? thisHero = this : null;
     });
-    base_stats == [
-      thisHero.AttributeBaseStrength,
-      thisHero.AttributeBaseAgility,
-      thisHero.AttributeBaseIntelligence,
-      thisHero.AttributeStrengthGain,
-      thisHero.AttributeAgilityGain,
-      thisHero.AttributeIntelligenceGain
+    console.log(thisHero || "nein")
+    base_stats = [
+      parseInt(thisHero.AttributeBaseStrength, 10),
+      parseInt(thisHero.AttributeBaseAgility, 10),
+      parseInt(thisHero.AttributeBaseIntelligence, 10),
+      parseFloat(thisHero.AttributeStrengthGain, 10),
+      parseFloat(thisHero.AttributeAgilityGain, 10),
+      parseFloat(thisHero.AttributeIntelligenceGain, 10)
     ];
+    // console.log("find base "+ base_stats);
+    return base_stats;
   });
-  return base_stats;
 };
