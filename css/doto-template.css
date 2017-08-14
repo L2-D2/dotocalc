@@ -1,6 +1,11 @@
 body {
   padding-top: 5rem;
 }
+
+h2 {
+  vertical-align: bottom;
+}
+
 .container-fluid {
   margin: .5rem 3rem
   padding: 3rem 1.5rem;
