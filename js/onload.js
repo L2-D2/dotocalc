@@ -41,20 +41,11 @@ function makeLvlSliders() {
 
 function makeAttrs(whom) {
   var spot = "#"+whom+"AttrSpot";
+  $(spot).append('<div class="row col"></div>')
   ATTRS.forEach( function(atr) {
-    $(spot).append('<div class="row '+atr+'"></div>');
-    for (var j = 0; j < 2; j++) {
-      $(spot)
-        .find(".row."+atr)
-        .append('<div class="col j'+j+'"></div>');
-      };
-    $(spot)
-      .find(".row."+atr+" > .col.j0")
-      .append("<p class="+atr+">0</p>")
-
-    $(spot)
-      .find(".row."+atr+" > .col.j1")
-      .append("<p>"+atr+"</p>")
+      $(spot).children().append('<div class="col"><p class="'+atr+'"></p></div>');
+      $(spot).children().append('<div class="col"><p>'+atr+'</p></div>');
+      $(spot).children().append('<div class="w-100"></div>');
   });
 };
 
