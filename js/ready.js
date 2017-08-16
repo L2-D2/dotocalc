@@ -1,10 +1,11 @@
-function updateAttrs(whom, lvl) {
+function updateAttrs(whom) {
   var spot = "#"+whom+"AttrSpot";
   var hero = $(whom + ", .heroSelect" ).val();
+  var lvl = parseInt($("#"+whom+"Level").text());
   var stats = calc_level_stats(hero, lvl);
   // console.log(spot)
   stats.forEach(function(val, i) {
-    var cleanVal = val.toFixed(2);
+    var cleanVal = val.toFixed(1);
     $(spot).find("p."+ATTRS[i]).text(cleanVal);
   });
 };
@@ -13,13 +14,12 @@ function updateAttrs(whom, lvl) {
 $(document).ready( function() {
   ["you", "them"].forEach( function(i) {
     $(".heroSelect."+ i).on("selectmenuchange", function() {
-      var lvl = $(i+"")
-      updateAttrs(i, 1);
+      updateAttrs(i);
     });
     $("#"+i+"LevelSlider").on("slide", function(event, ui) {
       $("#"+i+"Level").text(ui.value);
       updateAttrs(i, ui.value);
     });
-    updateAttrs(i, 1);
+    updateAttrs(i);
   });
 });
