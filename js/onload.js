@@ -62,8 +62,7 @@ window.onload = function() {
   makeItemSelects();
   makeHeroOptions();
   makeItemOptions();
-  $(".itemDrop").selectmenu();
-  $(".heroSelect").selectmenu();
+  $("select").selectmenu();
   makeAttrs("you");
   makeAttrs("them");
 };
