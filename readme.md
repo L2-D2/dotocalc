@@ -6,9 +6,7 @@ maybe a subprocess for
 
 is software for making doto coaching easier
 
-Back to:
-
-## DotoCalc
+## Back to: DotoCalc
 
 ### It Does:
 
