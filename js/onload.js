@@ -20,7 +20,7 @@ function makeItemOptions() {
     if (item["ID"] && !item["ItemRecipe"] && (itemName != "paint")) {
       var itemNum = item["ID"];
       $(".itemDrop").append("<option value=" + itemNum + ">" + itemName + "</option>");
-    };  
+    };
   };
 };
 
@@ -28,7 +28,6 @@ function makeItemSelects() {
   $(".itemSpot").append('<div class="row"></div>');
   for (let i = 0; i < 6; i++) {
     $(".itemSpot").children().append('<div class="itemSpotChild col"></div>');
-    // i == 2 ? $(".itemSpot").children().append('<div class="w-100"></div>') : null;
   };
   $(".itemSpotChild").append('<select class="itemDrop"></select>');
 };
