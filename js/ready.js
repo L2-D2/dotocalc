@@ -9,6 +9,7 @@ function updateAttrs(whom, lvl) {
 
 
 $(document).ready( function() {
+  $(".heroSelect").selectmenu("refresh");
 
   $("#yourLevelSlider").on("slidechange", function(event, ui) {
     $("#yourLevel").text(ui.value);
@@ -19,5 +20,5 @@ $(document).ready( function() {
     $("#theirLevel").text(ui.value);
     updateAttrs("them", ui.value);
   });
-  
+
 });
