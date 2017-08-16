@@ -1,15 +1,19 @@
 function updateAttrs(whom, lvl) {
-  var spot = "#"+whom+"attrSpot";
+  var spot = "#"+whom+"AttrSpot";
   var hero = $(whom + ", .heroSelect" ).val();
   var stats = calc_level_stats(hero, lvl);
+  console.log(spot)
   stats.forEach(function(val, i) {
-    $(spot).find("p ."+ATTRS[i]).text(val);
+    var cleanVal = val.toFixed(2);
+    $(spot).find("p."+ATTRS[i]).text(cleanVal);
   });
 };
 
 
 $(document).ready( function() {
-  $(".heroSelect").selectmenu("refresh");
+  // $(".heroSelect").selectmenu("refresh");
+  updateAttrs("you", 1);
+  updateAttrs("them",1);
 
   $("#yourLevelSlider").on("slidechange", function(event, ui) {
     $("#yourLevel").text(ui.value);
