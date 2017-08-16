@@ -25,4 +25,11 @@ is software for making doto coaching easier
 	* heroes to practice
 	* strategies to try
 
+### Notes:
+
+In chrome you will need to use `--allow-file-access-from-files` launch option to run this as-is.
+
+### TODO:
+
+just make a webserver..
 
