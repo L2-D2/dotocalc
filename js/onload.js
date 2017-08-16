@@ -1,30 +1,27 @@
-const ATTRS = ["str", "agi", "int"]
+// json = [heroes, items, abilites]
+var HEROES;
+var ITEMS;
+const ATTRS = ["str", "agi", "int"];
 
 function makeHeroOptions() {
-  $.getJSON("json/heroes.json").done( function(data) {
-    // var theSelect = $(name);
-    $.each(data["DOTAHeroes"], function() {
-      if (this["HeroID"]) {
-        var hero = this;
-        var heroNum = hero["HeroID"];
-        $(".heroSelect").append("<option value=" + heroNum + ">" + hero["workshop_guide_name"] + "</option>");
-      };
-    });
-  });
+  for (var key in HEROES.DOTAHeroes) {
+    var hero = HEROES.DOTAHeroes[key];
+    if (hero.HeroID) {
+      var heroNum = hero.HeroID;
+      $(".heroSelect").append("<option value=" + heroNum + ">" + hero.workshop_guide_name + "</option>");
+    };
+  };
 };
 
 function makeItemOptions() {
-  $.getJSON("json/items.json").done( function(data) {
-    // var theSelect = $(name)
-    $.each(data["DOTAAbilities"], function() {
-      var itemName = this["ItemAliases"] || Object.keys(this);
-      if (this["ID"] && !this["ItemRecipe"] && (itemName != "paint")) {
-        var item = this;
-        var itemNum = item["ID"];
-        $(".itemDrop").append("<option value=" + itemNum + ">" + itemName + "</option>");
-      };
-    });
-  });
+  for (var key in ITEMS.DOTAAbilities) {
+    var item = ITEMS.DOTAAbilities[key];
+    var itemName = item.ItemAliases || Object.keys(item);
+    if (item["ID"] && !item["ItemRecipe"] && (itemName != "paint")) {
+      var itemNum = item["ID"];
+      $(".itemDrop").append("<option value=" + itemNum + ">" + itemName + "</option>");
+    };  
+  };
 };
 
 function makeItemSelects() {
@@ -63,7 +60,15 @@ function makeAttrs(whom) {
   };
 };
 
-window.onload =  function() {
+window.onload = function() {
+  $.ajaxSetup({async: false});
+  $.getJSON("json/heroes.json", function(data) {
+    HEROES = data;
+  });
+  $.getJSON("json/items.json", function(data) {
+    ITEMS = data;
+  });
+
   makeLvlSliders();
   makeItemSelects();
   makeHeroOptions();
@@ -72,5 +77,4 @@ window.onload =  function() {
   $(".heroSelect").selectmenu();
   makeAttrs("you");
   makeAttrs("them");
-
 };
