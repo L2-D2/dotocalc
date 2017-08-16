@@ -11,22 +11,15 @@ function updateAttrs(whom, lvl) {
 
 
 $(document).ready( function() {
-
-  $("#yourLevelSlider").on("slidechange", function(event, ui) {
-    $("#yourLevel").text(ui.value);
-    updateAttrs("you", ui.value);
-  });
-
-  $("#theirLevelSlider").on("slide", function(event, ui) {
-    $("#theirLevel").text(ui.value);
-    updateAttrs("them", ui.value);
-  });
-
   ["you", "them"].forEach( function(i) {
     $(".heroSelect."+ i).on("selectmenuchange", function() {
+      var lvl = $(i+"")
       updateAttrs(i, 1);
+    });
+    $("#"+i+"LevelSlider").on("slide", function(event, ui) {
+      $("#"+i+"Level").text(ui.value);
+      updateAttrs(i, ui.value);
     });
     updateAttrs(i, 1);
   });
-
 });
