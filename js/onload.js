@@ -41,7 +41,7 @@ function makeLvlSliders() {
 
 function makeAttrs(whom) {
   var spot = "#"+whom+"AttrSpot";
-  $(spot).append('<div class="row col"></div>')
+  $(spot).append('<div class="row"></div>')
   ATTRS.forEach( function(atr) {
       $(spot).children().append('<div class="col"><p class="'+atr+'"></p></div>');
       $(spot).children().append('<div class="col"><p>'+atr+'</p></div>');
