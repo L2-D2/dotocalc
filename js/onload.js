@@ -1,4 +1,3 @@
-// json = [heroes, items, abilites]
 var HEROES;
 var ITEMS;
 const ATTRS = ["str", "agi", "int"];
@@ -42,21 +41,21 @@ function makeLvlSliders() {
 
 function makeAttrs(whom) {
   var spot = "#"+whom+"AttrSpot";
-  for (var i = 0; i < 3; i++) {
-    $(spot).append('<div class="row '+ATTRS[i]+'"></div>');
+  ATTRS.forEach( function(atr) {
+    $(spot).append('<div class="row '+atr+'"></div>');
     for (var j = 0; j < 2; j++) {
       $(spot)
-        .find(".row."+ATTRS[i])
+        .find(".row."+atr)
         .append('<div class="col j'+j+'"></div>');
       };
     $(spot)
-      .find(".row."+ATTRS[i]+" > .col.j0")
-      .append("<p class="+ATTRS[i]+">0</p>")
+      .find(".row."+atr+" > .col.j0")
+      .append("<p class="+atr+">0</p>")
 
     $(spot)
-      .find(".row."+ATTRS[i]+" > .col.j1")
-      .append("<p>"+ATTRS[i]+"</p>")
-  };
+      .find(".row."+atr+" > .col.j1")
+      .append("<p>"+atr+"</p>")
+  });
 };
 
 window.onload = function() {
