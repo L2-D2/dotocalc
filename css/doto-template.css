@@ -32,8 +32,6 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-/*p {
-  font-size: 32pt;
-  color: red;
-  margin: 0;
-}*/
+p {
+  margin-bottom: 0;
+}
