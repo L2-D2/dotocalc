@@ -58,9 +58,11 @@ function calc_dps(whom) {
   //    × general damage multipliers) x attacks per second
   var heroObj = find_hero( $(whom + ", .heroSelect" ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
+  var spot = "#"+whom+"AttrSpot";
   // Main damage = dmg_base + dmg_attr
   var dmg_attr = parseFloat( $(spot).find("p."+heroAttr).text() );
-  var dmg_main = calc_dmg_avg(
+  var agi = parseFloat( $(spot).find("p.agi").text() );
+  var dmg_main = calc_dmg_base_avg(
     heroObj.AttackDamageMin,
     heroObj.AttackDamageMax
   ) + dmg_attr;
@@ -68,14 +70,26 @@ function calc_dps(whom) {
   var dmg_bonus_flat;
   var scalar_crit;
   var dmg_blocked;
-  var scalar_armor
+  var scalar_armor;
   var scalar_armor_type;
   var scalar_general;
+  var hz_attack = (100 + agi) * 0.01 / parseFloat(heroObj.AttackRate);
 
+  // for the sake to seeing anything happen
+  return (dmg_main * hz_attack).toFixed(4);
 };
 
-function calc_dmg_avg (min, max) {
-  
+function calc_dmg_base_avg (min, max) {
+  min = parseFloat(min);
+  max = parseFloat(max);
+  return (min + max)/2;
+  // var rand_int = Math.floor(Math.random() * 420);
+  // console.log(rand_int);
+  // var valSum;
+  // Array(rand_int).forEach( function(i) {
+  //   Math.random() >= 0.5 ? valSum += (Math.random() * (max - min) + avg) : valSum += (Math.random() * (max - min) + avg)
+  // });
+  // return valSum / (parseFloat(rand_int)/2);
 };
 
 function find_hero(id) {
