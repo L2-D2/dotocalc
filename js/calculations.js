@@ -82,8 +82,8 @@ function calc_dps(whom) {
 function calc_dmg_base_avg (min, max) {
   min = parseFloat(min);
   max = parseFloat(max);
-  // return (min + max)/2;
   var avg = (min+max)/2;
+  // return avg;
   var rand_int = Math.floor(Math.random() * 420);
   var valSum = 0;
   for (let i = 0; i < rand_int; i++) { valSum += (Math.random() * (max - min) + avg) };
