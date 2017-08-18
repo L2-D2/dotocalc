@@ -10,6 +10,11 @@ function updateAttrs(whom) {
   });
 };
 
+function updateDPS(whom) {
+  var spot = "#"+whom+"DPS";
+  var dps = calc_dps(whom);
+  $(spot).text(dps);
+}
 
 window.onload = function() {
   ["you", "them"].forEach( function(i) {
