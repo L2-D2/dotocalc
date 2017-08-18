@@ -65,4 +65,4 @@ $(document).ready( function() {
   $("select").selectmenu();
   makeAttrs("you");
   makeAttrs("them");
-};
+});

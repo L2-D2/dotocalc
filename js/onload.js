@@ -22,4 +22,4 @@ window.onload = function() {
     });
     updateAttrs(i);
   });
-});
+};
