@@ -10,7 +10,7 @@ const ATTR_DICT = {
 function makeHeroOptions() {
   for (var key in HEROES.DOTAHeroes) {
     var hero = HEROES.DOTAHeroes[key];
-    if (hero.HeroID) {
+    if (hero.HeroID && hero.HeroID != "127") {
       var heroNum = hero.HeroID;
       $(".heroSelect").append("<option value=" + heroNum + ">" + hero.workshop_guide_name + "</option>");
     };
