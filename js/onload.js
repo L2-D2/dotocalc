@@ -11,7 +11,7 @@ function updateAttrs(whom) {
 };
 
 
-$(document).ready( function() {
+window.onload = function() {
   ["you", "them"].forEach( function(i) {
     $(".heroSelect."+ i).on("selectmenuchange", function() {
       updateAttrs(i);

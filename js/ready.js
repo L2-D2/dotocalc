@@ -49,7 +49,7 @@ function makeAttrs(whom) {
   });
 };
 
-window.onload = function() {
+$(document).ready( function() {
   $.ajaxSetup({async: false});
   $.getJSON("json/heroes.json", function(data) {
     HEROES = data;
