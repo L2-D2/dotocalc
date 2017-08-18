@@ -20,10 +20,12 @@ window.onload = function() {
   ["you", "them"].forEach( function(i) {
     $(".heroSelect."+ i).on("selectmenuchange", function() {
       updateAttrs(i);
+      updateDPS(i);
     });
     $("#"+i+"LevelSlider").on("slide", function(event, ui) {
       $("#"+i+"Level").text(ui.value);
       updateAttrs(i, ui.value);
+      updateDPS(i);
     });
     updateAttrs(i);
   });
