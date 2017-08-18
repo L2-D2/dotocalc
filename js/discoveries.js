@@ -7,12 +7,6 @@ function find_hero(id) {
   return heroObj;
 }
 
-function find_item_name(id) {
-  for (i in ITEMS.DOTAAbilities) {
-
-  }
-}
-
 function find_hero_base_stats(heroNum) {
   var base_stats;
   var heroObj = find_hero(heroNum);
