@@ -82,14 +82,12 @@ function calc_dps(whom) {
 function calc_dmg_base_avg (min, max) {
   min = parseFloat(min);
   max = parseFloat(max);
-  return (min + max)/2;
-  // var rand_int = Math.floor(Math.random() * 420);
-  // console.log(rand_int);
-  // var valSum;
-  // Array(rand_int).forEach( function(i) {
-  //   Math.random() >= 0.5 ? valSum += (Math.random() * (max - min) + avg) : valSum += (Math.random() * (max - min) + avg)
-  // });
-  // return valSum / (parseFloat(rand_int)/2);
+  // return (min + max)/2;
+  var avg = (min+max)/2;
+  var rand_int = Math.floor(Math.random() * 420);
+  var valSum = 0;
+  for (let i = 0; i < rand_int; i++) { valSum += (Math.random() * (max - min) + avg) };
+  return valSum / (parseFloat(rand_int));
 };
 
 function find_hero(id) {
