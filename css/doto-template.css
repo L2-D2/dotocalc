@@ -2,8 +2,13 @@ body {
   padding-top: 5rem;
 }
 
-h2 {
-  vertical-align: bottom;
+.vertAlign {
+  display: flex;
+  align-items: center;
+}
+
+.dpsText {
+  margin-bottom: 0;
 }
 
 .container-fluid {
