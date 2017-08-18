@@ -1,6 +1,11 @@
 var HEROES;
 var ITEMS;
 const ATTRS = ["str", "agi", "int"];
+const ATTR_DICT = {
+  DOTA_ATTRIBUTE_STRENGTH: ATTRS[0],
+  DOTA_ATTRIBUTE_AGILITY: ATTRS[1],
+  DOTA_ATTRIBUTE_INTELLEGENCE: ATTRS[2]
+};
 
 function makeHeroOptions() {
   for (var key in HEROES.DOTAHeroes) {
