@@ -60,7 +60,7 @@ function calc_dps(whom) {
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
   // Main damage = dmg_base + dmg_attr
   var dmg_attr = parseFloat( $(spot).find("p."+heroAttr).text() );
-  var dmg_main = dmg_base_avg(
+  var dmg_main = calc_dmg_avg(
     heroObj.AttackDamageMin,
     heroObj.AttackDamageMax
   ) + dmg_attr;
@@ -72,6 +72,10 @@ function calc_dps(whom) {
   var scalar_armor_type;
   var scalar_general;
 
+};
+
+function calc_dmg_avg (min, max) {
+  
 };
 
 function find_hero(id) {
