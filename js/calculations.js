@@ -56,7 +56,7 @@ function calc_dps(whom) {
   //    × critical strike multiplier - blocked damage )
   //    × armor value multiplier × armor type multiplier
   //    × general damage multipliers) x attacks per second
-  var heroItems = find_items_active(whom);
+  var heroItems = find_items_special(whom);
   var heroObj = find_hero( $(whom + ", .heroSelect" ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
   var spot = "#"+whom+"AttrSpot";

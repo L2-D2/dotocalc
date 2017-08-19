@@ -21,7 +21,14 @@ function find_hero_base_stats(heroNum) {
   return base_stats;
 };
 
-function find_items_active(whom) {
-  var list = [];
-  $("");
+function find_items_special(whom) {
+  let listIDs = new Array;
+  let items_special = new Array;
+  $(whom+".itemSpot").find(".itemDrop").map(function(item) {
+    listIDs.push(item)
+  });
+  listIDs.forEach(
+    items_special.push(ITEMS.DOTAAbilities[item].AbilitySpecial)
+  )
+  return items_special;
 }
