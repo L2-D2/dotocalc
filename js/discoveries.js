@@ -22,13 +22,14 @@ function find_hero_base_stats(heroNum) {
 };
 
 function find_items_special(whom) {
-  let listIDs = new Array;
   let items_special = new Array;
-  $(whom+".itemSpot").find(".itemDrop").map(function(item) {
-    listIDs.push(item)
+  let itemIDs = new Array;
+  $("."+whom+".itemSpot").find(".itemDrop").map( function() {
+    itemIDs.push( $().add(this).val() );
   });
-  listIDs.forEach(
-    items_special.push(ITEMS.DOTAAbilities[item].AbilitySpecial)
-  )
+  for (item in ITEMS.DOTAAbilities) {
+    // console.log(ITEMS.DOTAAbilities[item].ID);
+    itemIDs.includes( ITEMS.DOTAAbilities[item].ID ) ? items_special.push(ITEMS.DOTAAbilities[item].AbilitySpecial) : null;
+  };
   return items_special;
 }

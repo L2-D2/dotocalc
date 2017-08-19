@@ -50,13 +50,19 @@ function calc_level_stats(hero, level) {
   return new_stats;
 };
 
+function calc_special_bonus(bonusArray) {
+
+}
+
 function calc_dps(whom) {
 //  DPS =
   //  (((main damage × (1 + Σ percentage bonus damage) + flat bonus damage)
   //    × critical strike multiplier - blocked damage )
   //    × armor value multiplier × armor type multiplier
   //    × general damage multipliers) x attacks per second
-  var heroItems = find_items_special(whom);
+
+  // var itemBonus = calc_special_bonus( find_items_special(whom) );
+  var itemBonus = find_items_special(whom);
   var heroObj = find_hero( $(whom + ", .heroSelect" ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
   var spot = "#"+whom+"AttrSpot";
@@ -68,7 +74,7 @@ function calc_dps(whom) {
     heroObj.AttackDamageMax
   ) + dmg_attr;
   // Main damage = dmg_base + dmg_attr
-
+  console.log(itemBonus);
   var dmg_bonus_percent;
   var dmg_bonus_flat;
   var scalar_crit;

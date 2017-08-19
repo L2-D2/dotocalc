@@ -28,5 +28,6 @@ window.onload = function() {
       updateDPS(i);
     });
     updateAttrs(i);
+    updateDPS(i);
   });
 };
