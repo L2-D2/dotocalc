@@ -56,16 +56,19 @@ function calc_dps(whom) {
   //    × critical strike multiplier - blocked damage )
   //    × armor value multiplier × armor type multiplier
   //    × general damage multipliers) x attacks per second
+  var heroItems = find_items_active(whom);
   var heroObj = find_hero( $(whom + ", .heroSelect" ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
   var spot = "#"+whom+"AttrSpot";
-  // Main damage = dmg_base + dmg_attr
+
   var dmg_attr = parseFloat( $(spot).find("p."+heroAttr).text() );
   var agi = parseFloat( $(spot).find("p.agi").text() );
   var dmg_main = calc_dmg_base_avg(
     heroObj.AttackDamageMin,
     heroObj.AttackDamageMax
   ) + dmg_attr;
+  // Main damage = dmg_base + dmg_attr
+
   var dmg_bonus_percent;
   var dmg_bonus_flat;
   var scalar_crit;

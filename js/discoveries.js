@@ -20,3 +20,8 @@ function find_hero_base_stats(heroNum) {
   ];
   return base_stats;
 };
+
+function find_items_active(whom) {
+  var list = [];
+  $("");
+}
