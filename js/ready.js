@@ -19,11 +19,9 @@ function makeHeroOptions() {
 
 function makeItemOptions() {
   for (var key in ITEMS.DOTAAbilities) {
-    var item = ITEMS.DOTAAbilities[key];
-    var itemName = item.ItemAliases || key;
-    if (item["ID"] && !item["ItemRecipe"] && (itemName != "paint")) {
-      var itemNum = item["ID"];
-      $(".itemDrop").append("<option value=" + itemNum + ">" + key + "</option>");
+    var itemObj = ITEMS.DOTAAbilities[key];
+    if ( itemObj.ID && !itemObj.ItemRecipe && (itemObj.ItemAliases != "paint") ) {
+      $(".itemDrop").append("<option value="+itemObj.ID+">"+key+"</option>");
     };
   };
 };
