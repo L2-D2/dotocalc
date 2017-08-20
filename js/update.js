@@ -10,24 +10,26 @@ function updateAttrs(whom) {
   });
 };
 
-function updateDPS(whom) {
+function updateDPS(whom, parent) {
   var spot = "#"+whom+"DPS";
-  var dps = calc_dps(whom);
+  var dps = calc_dps(whom, parent);
   $(spot).text(dps);
 }
 
 window.onload = function() {
   ["you", "them"].forEach( function(i) {
-    $(".heroSelect."+ i).on("selectmenuchange", function() {
+    $(".heroSelect."+ i).on("selectmenuchange", function(e) {
       updateAttrs(i);
-      updateDPS(i);
+      updateDPS(i, e);
     });
     $("#"+i+"LevelSlider").on("slide", function(event, ui) {
       $("#"+i+"Level").text(ui.value);
       updateAttrs(i, ui.value);
-      updateDPS(i);
+      updateDPS(i, event);
+    });
+    $(".itemDrop."+i).on("selectmenuchange", function(e) {
+      updateDPS(i,e)
     });
     updateAttrs(i);
-    updateDPS(i);
   });
 };

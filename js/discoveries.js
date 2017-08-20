@@ -21,19 +21,33 @@ function find_hero_base_stats(heroNum) {
   return base_stats;
 };
 
+function yank_item_special(id) {
+  let bons = new Array;
+  for (let item in ITEMS.DOTAAbilities) {
+    ITEMS.DOTAAbilities[item].ID == id ? (
+      bons = ITEMS.DOTAAbilities[item].AbilitySpecial
+    ) : null;
+  };
+  return bons
+};
+
 function find_items_special(whom) {
-  let items_special = new Array;
+  let items_special = new Object;
+  let special_array = new Array;
   let itemIDs = new Array;
+  // itemIDs: the 6 items in an array as item.IDs
   $("."+whom+".itemSpot").find(".itemDrop").map( function() {
     itemIDs.push( $().add(this).val() );
   });
-  for (let item in ITEMS.DOTAAbilities) {
-    itemIDs.includes( ITEMS.DOTAAbilities[item].ID ) ? (
-      items_special.push(ITEMS.DOTAAbilities[item].AbilitySpecial)
-    ) : null;
-  };
+  // items_special = { item.ID: { count: [1..6], special: [special_array] }, otheritem.ID: {..}, ..}
+  itemIDs.forEach( function(id) {
+    items_special.hasOwnProperty(id) ? items_special[id].count += 1 : items_special[id] = {
+      "count": 1,
+      "special": yank_item_special(id)
+    };
+  });
   return items_special;
-}
+};
 
 function GETBONUSES() {
   let list = new Array;

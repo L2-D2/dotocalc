@@ -26,20 +26,12 @@ function makeItemOptions() {
   };
 };
 
-function makeItemSelects() {
-  $(".itemSpot").append('<div class="row"></div>');
+function makeItemSelects(whom) {
+  $(".itemSpot."+whom).append('<div class="row"></div>');
   for (let i = 0; i < 6; i++) {
-    $(".itemSpot").children().append('<div class="itemSpotChild col"></div>');
+    $(".itemSpot."+whom).children().append('<div class="itemSpotChild col '+whom+'"></div>');
   };
-  $(".itemSpotChild").append('<select class="itemDrop"></select>');
-};
-
-function makeLvlSliders() {
-  $(".lvlSlider").slider({
-    max: 25,
-    min: 1,
-    value: 1
-  });
+  $(".itemSpotChild."+whom).append('<select class="itemDrop '+whom+'"></select>');
 };
 
 function makeAttrs(whom) {
@@ -60,13 +52,17 @@ $(document).ready( function() {
   $.getJSON("json/items.json", function(data) {
     ITEMS = data;
   });
-
-  makeLvlSliders();
-  makeItemSelects();
+  ["you", "them"].forEach( function(i) {
+    makeItemSelects(i);
+    makeAttrs(i);
+  });
   makeHeroOptions();
   makeItemOptions();
-  $("select").selectmenu();
+  $(".lvlSlider").slider({
+    max: 25,
+    min: 1,
+    value: 1
+  });
   $("button").button();
-  makeAttrs("you");
-  makeAttrs("them");
+  $("select").selectmenu();
 });
