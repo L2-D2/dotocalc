@@ -27,9 +27,26 @@ function find_items_special(whom) {
   $("."+whom+".itemSpot").find(".itemDrop").map( function() {
     itemIDs.push( $().add(this).val() );
   });
-  for (item in ITEMS.DOTAAbilities) {
-    // console.log(ITEMS.DOTAAbilities[item].ID);
-    itemIDs.includes( ITEMS.DOTAAbilities[item].ID ) ? items_special.push(ITEMS.DOTAAbilities[item].AbilitySpecial) : null;
+  for (let item in ITEMS.DOTAAbilities) {
+    itemIDs.includes( ITEMS.DOTAAbilities[item].ID ) ? (
+      items_special.push(ITEMS.DOTAAbilities[item].AbilitySpecial)
+    ) : null;
   };
   return items_special;
 }
+
+function GETBONUSES() {
+  let list = new Array;
+  for (let i in ITEMS.DOTAAbilities) {
+    let bonuses = new Array;
+    if (ITEMS.DOTAAbilities[i].AbilitySpecial) {
+      ITEMS.DOTAAbilities[i].AbilitySpecial.forEach(function(e) {
+        bonuses.push(Object.keys(e)[0]);
+      });
+      bonuses.forEach( function(e) {
+        !list.includes(e) ? list.push(e) : null;
+      });
+    };
+  };
+  return list;
+};
