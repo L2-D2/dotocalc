@@ -50,11 +50,12 @@ function calc_special_bonus(specialObj) {
   for (let item in specialObj) {
     specialObj[item].special.forEach( function(o) {
       let bonus_name = Object.keys(o)[0];
+      let bonusObj = specialObj[item].special[0];
       RELEVANTBONUSES.includes(bonus_name) ? (
         bonus_values.hasOwnProperty(bonus_name) ? (
-          bonus_values[bonus_name] += (specialObj[item].special[0][bonus_name]*specialObj[item].count)
+          bonus_values[bonus_name] += (bonusObj[bonus_name]*specialObj[item].count)
         ) : (
-          bonus_values[bonus_name] = (specialObj[item].special[0][bonus_name]*specialObj[item].count)
+          bonus_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count)
         )
       ) : null; // RELEVANTBONUSES.includes?
     });
