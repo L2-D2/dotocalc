@@ -50,15 +50,18 @@ function calc_level_stats(hero, level) {
   return new_stats;
 };
 
-function calc_special_bonus(bonusArray) {
-  var bonuses = new Object;
-  bonusArray.forEach( function(item) {
-    item.forEach( function(o) {
-      let bonus = Object.keys(o)[0];
-      bonuses.hasOwnProperty(bonus) ? bonuses[bonus] += o[bonus] : bonuses[bonus] = o[bonus] ;
+function calc_special_bonus(bonArray) {
+  function isBon() {
+
+  };
+  var bons = new Object;
+  bonArray.forEach( function(item) {
+    item.forEach( function(bonObj) {
+      let thisBon = Object.keys(bonObj)[0];
+      bons.hasOwnProperty(thisBon) ? bons[thisBon] += bonObj[thisBon] : bons[thisBon] = bonObj[thisBon] ;
     });
   });
-  return bonuses;
+  return bons;
 };
 
 function calc_dps(whom) {
