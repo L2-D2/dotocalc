@@ -51,8 +51,15 @@ function calc_level_stats(hero, level) {
 };
 
 function calc_special_bonus(bonusArray) {
-
-}
+  var bonuses = new Object;
+  bonusArray.forEach( function(item) {
+    item.forEach( function(o) {
+      let bonus = Object.keys(o)[0];
+      bonuses.hasOwnProperty(bonus) ? bonuses[bonus] += o[bonus] : bonuses[bonus] = o[bonus] ;
+    });
+  });
+  return bonuses;
+};
 
 function calc_dps(whom) {
 //  DPS =
@@ -61,20 +68,16 @@ function calc_dps(whom) {
   //    × armor value multiplier × armor type multiplier
   //    × general damage multipliers) x attacks per second
 
-  // var itemBonus = calc_special_bonus( find_items_special(whom) );
-  var itemBonus = find_items_special(whom);
+  var itemBonusObj = calc_special_bonus( find_items_special(whom) );
+  console.log(itemBonusObj);
   var heroObj = find_hero( $(whom + ", .heroSelect" ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
   var spot = "#"+whom+"AttrSpot";
 
   var dmg_attr = parseFloat( $(spot).find("p."+heroAttr).text() );
   var agi = parseFloat( $(spot).find("p.agi").text() );
-  var dmg_main = calc_dmg_base_avg(
-    heroObj.AttackDamageMin,
-    heroObj.AttackDamageMax
-  ) + dmg_attr;
-  // Main damage = dmg_base + dmg_attr
-  console.log(itemBonus);
+  var dmg_base = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
+  var dmg_main = dmg_base + dmg_attr;
   var dmg_bonus_percent;
   var dmg_bonus_flat;
   var scalar_crit;
