@@ -11,10 +11,6 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-.dpsText {
-  margin-bottom: 0;
-}
-
 .container-fluid {
   margin: .5rem 3rem
   padding: 3rem 1.5rem;

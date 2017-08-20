@@ -66,6 +66,7 @@ $(document).ready( function() {
   makeHeroOptions();
   makeItemOptions();
   $("select").selectmenu();
+  $("button").button();
   makeAttrs("you");
   makeAttrs("them");
 });
