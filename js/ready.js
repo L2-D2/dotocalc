@@ -31,7 +31,7 @@ function Player(whom) {
 
 function makeSkeleton(whom) {
   let whomPossessive = PLAYER_DICT[whom].possessive.toLowerCase();
-  $("#main").append(`<div id=${whom} class="full-hero container-fluid col-lg-6">`);
+  $("#main").append(`<div id="${whom}" class="full-hero container-fluid col-lg-6">`);
   $(`#${whom}`)
     .append(`<span><h2>Pick${PLAYER_DICT[whom].pickHero}!</h2></span>`)
     .append(`<span class="row ${whom} topRow"></span>`) // top row
@@ -53,13 +53,13 @@ function makeSkeleton(whom) {
     .append(`<div class="col vertAlign justify-content-center"><select class="${whom} heroSelect"></select></div>`)
     .append(`<div class="col vertAlign" id="${whom}AttrSpot"></div>`);
   $(`.${whom}.dpsRow`)
-    .append(`<div class="col"><span><button onclick='updateDPS(${whom}, "${whomPossessive}Button")'>DPS</button></span></div>`)
+    .append(`<div class="col"><span><button onclick='updateDPS("${whom}", "${whomPossessive}Button")'>DPS</button></span></div>`)
     .append(`<div class="col"><div class="box"><p id="${whom}DPS">Over 9000!</p></div></div>`)
     .append(`<div class="col justify-content-center vertAlign ${whom} towerChecks"></div>`);
-  $(`.${whom}.towerChecks`).append(function(i) {
-    return `<span class="t${i+1}Check">T${i+1}?<input type="checkbox"></input></span>`
+  [1,2,3].forEach(function(i) {
+    $(`.${whom}.towerChecks`).append(`<span class="t${i}Check">T${i}?<input type="checkbox"></input></span>`);
   });
-}
+};
 
 function makeHeroOptions() {
   for (var key in HEROES.DOTAHeroes) {
