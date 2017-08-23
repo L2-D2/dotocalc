@@ -6,6 +6,10 @@ input[type="checkbox"] {
     margin: 0rem 0.5rem;
 }
 
+input[type="radio"] {
+    margin: 0rem 0.5rem;
+}
+
 .vertAlign {
   display: flex;
   align-items: center;
