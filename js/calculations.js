@@ -39,32 +39,41 @@ function calc_level_stats(hero, level) {
 };
 
 function calc_special_bonus(specialObj) {
-  // SpecialObj = { item1: { count: [1-6], special: [special_array] }, item2: {} }
+  // SpecialObj = { item1: { count: [1..6], special: [special_array] }, item2: {} }
   var RELEVANTBONUSES = [
     "bonus_damage",
-    "bonus_str",
-    "bonus_agi",
-    "bonus_int"
+    "bonus_attack_speed",
+    "bonus_strength",
+    "bonus_agility",
+    "bonus_intellect"
   ];
+  var store_values = new Object;
   var bonus_values = new Object;
   for (let item in specialObj) {
-    specialObj[item].special.forEach( function(o) {
+    specialObj[item].special.forEach( function(o,i) {
       let bonus_name = Object.keys(o)[0];
-      let bonusObj = specialObj[item].special[0];
-      RELEVANTBONUSES.includes(bonus_name) ? (
-        bonus_values.hasOwnProperty(bonus_name) ? (
-          bonus_values[bonus_name] += (bonusObj[bonus_name]*specialObj[item].count)
-        ) : (
-          bonus_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count)
-        )
-      ) : null; // RELEVANTBONUSES.includes?
+      let bonusObj = specialObj[item].special[i];
+      store_values.hasOwnProperty(bonus_name) ? (
+        store_values[bonus_name] += (bonusObj[bonus_name]*specialObj[item].count)
+      ) : (
+        store_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count)
+      );
     });
   };
+  ATTRS.forEach(function(a,i) {
+    let short = "bonus_"+a;
+    let long = ATTR_DICT[a];
+    store_values[long] += (store_values[short] || 0);
+    delete store_values[short];
+  });
+  RELEVANTBONUSES.forEach(function(bon) {
+    bonus_values[bon] = store_values[bon] || 0;
+  });
+  // bonus_values = { bonus1: total-value, bonus2: total-value.. }
   return bonus_values;
 };
 
 function calc_dps(whom, parent) {
-  // console.log({calling_calc_dps: parent});
   //  DPS =
   //  (((main damage × (1 + Σ percentage bonus damage) + flat bonus damage)
   //    × critical strike multiplier - blocked damage )
@@ -72,23 +81,26 @@ function calc_dps(whom, parent) {
   //    × general damage multipliers) x attacks per second
 
   var itemBonusObj = calc_special_bonus( find_items_special(whom) );
-  var heroObj = find_hero( $(whom + ", .heroSelect" ).val() );
+  var heroObj = yank_hero_obj( $(whom + ", .heroSelect" ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
-  var spot = "#"+whom+"AttrSpot";
-  var dmg_attr = parseFloat( $(spot).find("p."+heroAttr).text() );
-  var agi = parseFloat( $(spot).find("p.agi").text() );
+  var attrIndex = ATTRS.indexOf(heroAttr);
+  var current_attrs = yank_current_attrs(whom);
+  // is there bonus_attack_speed? yes: agi + bonus; no: agi
+  var attack_speed =
+    itemBonusObj.bonus_attack_speed ?
+      current_attrs[1] + itemBonusObj.bonus_attack_speed
+      :current_attrs[1];
   var dmg_base = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
   var dmg_bonus_percent;
   var dmg_bonus_flat = itemBonusObj.bonus_damage || 0;
+  var dmg_attr = ( current_attrs[attrIndex] )+( itemBonusObj[ATTR_DICT[heroAttr]] );
   var scalar_crit;
   var dmg_blocked;
   var scalar_armor;
   var scalar_armor_type;
   var scalar_general;
-  var hz_attack = (100 + agi) * 0.01 / parseFloat(heroObj.AttackRate);
+  var hz_attack = (100 + attack_speed) * 0.01 / parseFloat(heroObj.AttackRate);
 
-  // for the sake to seeing anything happen
-  // console.log(whom, [dmg_base, dmg_attr, dmg_bonus_flat], itemBonusObj);
   var dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
   return (dmg_main * hz_attack).toFixed(4);
 };
