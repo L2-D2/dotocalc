@@ -57,8 +57,9 @@ function makeSkeleton(whom) {
     .append(`<div class="col"><span><button onclick='updateDPS("${whom}", "${whomLowPosses}Button")'>DPS</button></span></div>`)
     .append(`<div class="col"><div class="box"><p id="${whom}DPS">Over 9000!</p></div></div>`)
     .append(`<div class="col justify-content-center vertAlign ${whom} towerChecks"></div>`);
+  $(`.${whom}.towerChecks`).append(`<span class="vertAlign justify-content-center">Tower Aura?</span>`);
   [0,1,2,3].forEach(function(i) {
-    let words = i==0 ? "No" : `T${i}`;
+    let words = ( i==0 ? "No" : `T${i}` );
     $(`.${whom}.towerChecks`).append(`<span class="t${i}Check">${words}?<input name="${whom}Tower" type="radio"></input></span>`);
   });
 };
