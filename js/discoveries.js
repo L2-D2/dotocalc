@@ -7,6 +7,15 @@ function yank_hero_obj(id) {
   return heroObj;
 }
 
+function yank_item_IDs(whom) {
+  let itemIDs = new Array;
+  // itemIDs: the 6 items in an array as item.IDs
+  $(`.${whom}.itemSpot`).find(".itemDrop").map( function() {
+    itemIDs.push( $().add(this).val() );
+  });
+  return itemIDs;
+};
+
 function find_hero_base_stats(heroNum) {
   var base_stats;
   var heroObj = yank_hero_obj(heroNum);
@@ -33,10 +42,9 @@ function yank_item_special(id) {
 
 function yank_current_attrs(whom) {
   let attrs = new Array;
-  var spot = "#"+whom+"AttrSpot";
+  var spot = `#${whom}AttrSpot`;
   ATTRS.forEach( function(attr, i) {
-    attrs[i] = parseFloat( $(spot).find("p."+attr).text() );
-    // should do in [str, agi, int] order
+    attrs[i] = parseFloat( $(spot).find(`p.${attr}`).text() );
   });
   return attrs;
 };
@@ -47,7 +55,7 @@ function find_items_special(whom) {
   let itemIDs = new Array;
 
   // itemIDs: the 6 items in an array as item.IDs
-  $("."+whom+".itemSpot").find(".itemDrop").map( function() {
+  $(`.${whom}.itemSpot`).find(".itemDrop").map( function() {
     itemIDs.push( $().add(this).val() );
   });
 
