@@ -83,17 +83,21 @@ function calc_dps(whom, parent) {
   var itemBonusObj = calc_special_bonus( find_items_special(whom) );
   var heroObj = yank_hero_obj( $(whom + ", .heroSelect" ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
-  var attrIndex = ATTRS.indexOf(heroAttr);
-  var current_attrs = yank_current_attrs(whom);
+  var attrs_current = yank_current_attrs(whom);
+  var attrs_effective = new Array;
+  // effective attrs = current + bonus
+  ATTRS.forEach( function(a,i){
+    attrs_effective[i] = attrs_current[i]+itemBonusObj[ ATTR_DICT[a] ]
+  });
   // is there bonus_attack_speed? yes: agi + bonus; no: agi
   var attack_speed =
     itemBonusObj.bonus_attack_speed ?
-      current_attrs[1] + itemBonusObj.bonus_attack_speed
-      :current_attrs[1];
+      attrs_effective[1] + itemBonusObj.bonus_attack_speed
+      :attrs_effective[1];
   var dmg_base = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
   var dmg_bonus_percent;
   var dmg_bonus_flat = itemBonusObj.bonus_damage || 0;
-  var dmg_attr = ( current_attrs[attrIndex] )+( itemBonusObj[ATTR_DICT[heroAttr]] );
+  var dmg_attr = attrs_effective[ ATTRS.indexOf(heroAttr) ];
   var scalar_crit;
   var dmg_blocked;
   var scalar_armor;
