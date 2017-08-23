@@ -3,11 +3,13 @@ const PLAYERS = ["you", "them"];
 const PLAYER_DICT = {
   you: {
     pickHero: "a Hero",
-    possessive: "Your"
+    possessive: "Your",
+    possessiveSafe: "your"
   },
   them: {
     pickHero: "an Enemy",
-    possessive: "Their"
+    possessive: "Their",
+    possessiveSafe: "their"
   }
 };
 const ATTRS = ["str", "agi", "int"];
@@ -30,21 +32,21 @@ function Player(whom) {
 }
 
 function makeSkeleton(whom) {
-  let whomLowPosses = PLAYER_DICT[whom].possessive.toLowerCase();
-  let whomUpPosses = PLAYER_DICT[whom].possessive;
+  let whomPossessive = PLAYER_DICT[whom].possessive;
+  let whomPossessiveSafe = PLAYER_DICT[whom].possessiveSafe;
   $("#main").append(`<div id="${whom}" class="full-hero container-fluid col-lg-6">`);
   $(`#${whom}`)
     .append(`<span><h2>Pick ${PLAYER_DICT[whom].pickHero}!</h2></span>`)
     .append(`<span class="row ${whom} topRow"></span>`)
     .append(`<span><div id="${whom}LevelSlider" class="${whom} lvlSlider"></div></span>`)
-    .append(`<span><h3>Pick ${whomLowPosses} Items!</h3></span>`)
+    .append(`<span><h3>Pick ${whomPossessive} Items!</h3></span>`)
     .append(`<span class="${whom} itemSpot"></span>`)
     .append(`<span>Pocket Riki? <input type="checkbox"></input></span>`)
     .append(`<span class="row ${whom} dpsRow vertAlign justify-content-center">`);
   $(`.${whom}.topRow`) // topRow
     .append(`<div class="col">
       <div class="row container-fluid ${whom} armorPlusLevel">
-        <div class="col vertAlign"><p>${whomUpPosses} Level</p></div>
+        <div class="col vertAlign"><p>${whomPossessive} Level</p></div>
         <div class="col">
         <p class="box " id="${whom}Level">1</p>
         </div>
@@ -54,7 +56,7 @@ function makeSkeleton(whom) {
     .append(`<div class="col vertAlign justify-content-center"><select class="${whom} heroSelect"></select></div>`)
     .append(`<div class="col vertAlign" id="${whom}AttrSpot"></div>`);  // !topRow
   $(`.${whom}.dpsRow`) // dps row
-    .append(`<div class="col"><span><button onclick='updateDPS("${whom}", "${whomLowPosses}Button")'>DPS</button></span></div>`)
+    .append(`<div class="col"><span><button onclick='updateDPS("${whom}", "${whomPossessiveSafe}Button")'>DPS</button></span></div>`)
     .append(`<div class="col"><div class="box"><p id="${whom}DPS">Over 9000!</p></div></div>`)
     .append(`<div class="col justify-content-center vertAlign ${whom} towers"></div>`);
   $(`.${whom}.towers`)
