@@ -157,7 +157,7 @@
           "bonus_damage": 10
         },
         {
-          "bonus_speed": 10
+          "bonus_attack_speed": 10
         }
       ]
     },
