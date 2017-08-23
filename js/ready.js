@@ -4,7 +4,10 @@ const ATTRS = ["str", "agi", "int"];
 const ATTR_DICT = {
   DOTA_ATTRIBUTE_STRENGTH: ATTRS[0],
   DOTA_ATTRIBUTE_AGILITY: ATTRS[1],
-  DOTA_ATTRIBUTE_INTELLECT: ATTRS[2]
+  DOTA_ATTRIBUTE_INTELLECT: ATTRS[2],
+  str: "bonus_strength",
+  agi: "bonus_agility",
+  int: "bonus_intellect"
 };
 
 function makeHeroOptions() {
