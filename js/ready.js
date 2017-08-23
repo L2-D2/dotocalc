@@ -1,15 +1,65 @@
-var HEROES;
-var ITEMS;
+var HEROES, ITEMS, YOU, THEM;
 const PLAYERS = ["you", "them"];
+const PLAYER_DICT = {
+  you: {
+    pickHero: "a Hero",
+    possessive: "Your"
+  },
+  them: {
+    pickHero: "an Enemy",
+    possessive: "Their"
+  }
+};
 const ATTRS = ["str", "agi", "int"];
+const ARMORTYPES = ["Basic", "Hero", "Siege"];
 const ATTR_DICT = {
   DOTA_ATTRIBUTE_STRENGTH: ATTRS[0],
   DOTA_ATTRIBUTE_AGILITY: ATTRS[1],
   DOTA_ATTRIBUTE_INTELLECT: ATTRS[2],
-  str: "bonus_strength",
-  agi: "bonus_agility",
-  int: "bonus_intellect"
+  str: ["bonus_strength", "Strength"],
+  agi: ["bonus_agility", "Agility"],
+  int: ["bonus_intellect", "Intelligence"]
 };
+
+function Player(whom) {
+  this.heroID = $(`.${whom}.heroSelect`).val();
+  this.heroObj = yank_hero_obj(this.heroID);
+  this.heroLevel = parseInt($(`#${whom}Level`).text());
+  this.lvlAttrs = calc_level_stats(this.heroID, this.heroLevel);
+  this.effectiveArmor = 0;
+}
+
+function makeSkeleton(whom) {
+  let whomPossessive = PLAYER_DICT[whom].possessive.toLowerCase();
+  $("#main").append(`<div id=${whom} class="full-hero container-fluid col-lg-6">`);
+  $(`#${whom}`)
+    .append(`<span><h2>Pick${PLAYER_DICT[whom].pickHero}!</h2></span>`)
+    .append(`<span class="row ${whom} topRow"></span>`) // top row
+    .append(`<span><div id="${whom}LevelSlider" class="${whom} lvlSlider"></div></span>`)
+    .append(`<span><h3>Pick ${whomPossessive} Items!</h3></span>`)
+    .append(`<span class="${whom} itemSpot"></span>`)
+    .append(`<span>Pocket Riki? <input type="checkbox"></input></span>`)
+    .append(`<span class="row ${whom} dpsRow vertAlign justify-content-center">`); // dps row
+  $(`.${whom}.topRow`)
+    .append(`<div class="col">
+      <div class="row container-fluid ${whom} armorPlusLevel">
+        <div class="col vertAlign"><p>${whomPossessive} Level</p></div>
+        <div class="col">
+        <p class="box " id="${whom}Level">1</p>
+        </div>
+        <span class="w-100"></span>
+      </div>
+    </div>`)
+    .append(`<div class="col vertAlign justify-content-center"><select class="${whom} heroSelect"></select></div>`)
+    .append(`<div class="col vertAlign" id="${whom}AttrSpot"></div>`);
+  $(`.${whom}.dpsRow`)
+    .append(`<div class="col"><span><button onclick='updateDPS(${whom}, "${whomPossessive}Button")'>DPS</button></span></div>`)
+    .append(`<div class="col"><div class="box"><p id="${whom}DPS">Over 9000!</p></div></div>`)
+    .append(`<div class="col justify-content-center vertAlign ${whom} towerChecks"></div>`);
+  $(`.${whom}.towerChecks`).append(function(i) {
+    return `<span class="t${i+1}Check">T${i+1}?<input type="checkbox"></input></span>`
+  });
+}
 
 function makeHeroOptions() {
   for (var key in HEROES.DOTAHeroes) {
@@ -29,6 +79,13 @@ function makeItemOptions() {
       $(".itemDrop").append(`<option value=${itemObj.ID}>${key}</option>`);
     };
   };
+  // var options = $(".itemDrop option");
+  // options.detach().sort(function(a,b) {
+  //   var at = $(a).text();
+  //   var bt = $(b).text();
+  //   return (at > bt)?1:((at < bt)?-1:0);
+  // });
+  // options.appendTo(".itemDrop option");
 };
 
 function makeItemSelects(whom) {
@@ -37,24 +94,29 @@ function makeItemSelects(whom) {
     $(`.itemSpot.${whom}`).children().append(`<div class="itemSpotChild col ${whom}"></div>`);
   };
   $(`.itemSpotChild.${whom}`).append(`<select class="itemDrop ${whom}"></select>`);
+
 };
 
 function makeArmorText(whom) {
-  var spot = `#${whom}AttrSpot`;
-  $(spot).append('<div class="row"></div>');
-}
+  var spot = `.${whom}.armorPlusLevel`;
+  $(spot).append(`<div class="col justify-content-center vertAlign box"><p class="${whom} armorVal">??</p></div>`);
+  $(spot).append(`<div class="col vertAlign"><p class="${whom} armorText">Hero Armor?</p></div>`);
+};
 
 function makeAttrs(whom) {
   var spot = `#${whom}AttrSpot`;
   $(spot).append('<div class="row"></div>');
   ATTRS.forEach( function(atr) {
-      $(spot).children().append(`<div class="col"><p class=${atr}></p></div>`);
-      $(spot).children().append(`<div class="col"><p>${atr}</p></div>`);
-      $(spot).children().append('<div class="w-100"></div>');
+    let icon = `40px-${ATTR_DICT[atr][1]}_attribute_symbol.png`
+    $(spot).children().append(`<div class="col justify-content-center vertAlign"><p class=${atr}></p></div>`);
+    // $(spot).children().append(`<div class="col"><p>${atr}</p></div>`);
+    $(spot).children().append(`<div class="col"><img src=assets/${icon}></div>`);
+    $(spot).children().append('<div class="w-100"></div>');
   });
 };
 
 $(document).ready( function() {
+  // let playerArray = new Array;
   $.ajaxSetup({async: false});
   $.getJSON("json/heroes.json", function(data) {
     HEROES = data;
@@ -63,10 +125,13 @@ $(document).ready( function() {
     ITEMS = data;
   });
   PLAYERS.forEach( function(p) {
+    makeSkeleton(p);
     makeItemSelects(p);
     makeAttrs(p);
     makeArmorText(p);
   });
+  // playerArray.push(new Player(p));
+  // [YOU, THEM] = playerArray;
   makeHeroOptions();
   makeItemOptions();
   $(".lvlSlider").slider({
