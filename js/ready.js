@@ -37,12 +37,17 @@ function makeItemSelects(whom) {
   $(".itemSpotChild."+whom).append('<select class="itemDrop '+whom+'"></select>');
 };
 
+function makeArmorText(whom) {
+  var spot = "#"+whom+"AttrSpot";
+  $(spot).append('<div class="row"></div>');
+}
+
 function makeAttrs(whom) {
   var spot = "#"+whom+"AttrSpot";
-  $(spot).append('<div class="row"></div>')
+  $(spot).append('<div class="row"></div>');
   ATTRS.forEach( function(atr) {
-      $(spot).children().append('<div class="col"><p class="'+atr+'"></p></div>');
-      $(spot).children().append('<div class="col"><p>'+atr+'</p></div>');
+      $(spot).children().append(`<div class="col"><p class=${atr}></p></div>`);
+      $(spot).children().append(`<div class="col"><p>${atr}</p></div>`);
       $(spot).children().append('<div class="w-100"></div>');
   });
 };
@@ -58,6 +63,7 @@ $(document).ready( function() {
   ["you", "them"].forEach( function(i) {
     makeItemSelects(i);
     makeAttrs(i);
+    makeArmorText(i);
   });
   makeHeroOptions();
   makeItemOptions();
