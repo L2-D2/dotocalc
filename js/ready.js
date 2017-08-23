@@ -35,13 +35,13 @@ function makeSkeleton(whom) {
   $("#main").append(`<div id="${whom}" class="full-hero container-fluid col-lg-6">`);
   $(`#${whom}`)
     .append(`<span><h2>Pick ${PLAYER_DICT[whom].pickHero}!</h2></span>`)
-    .append(`<span class="row ${whom} topRow"></span>`) // top row
+    .append(`<span class="row ${whom} topRow"></span>`)
     .append(`<span><div id="${whom}LevelSlider" class="${whom} lvlSlider"></div></span>`)
     .append(`<span><h3>Pick ${whomLowPosses} Items!</h3></span>`)
     .append(`<span class="${whom} itemSpot"></span>`)
     .append(`<span>Pocket Riki? <input type="checkbox"></input></span>`)
-    .append(`<span class="row ${whom} dpsRow vertAlign justify-content-center">`); // dps row
-  $(`.${whom}.topRow`)
+    .append(`<span class="row ${whom} dpsRow vertAlign justify-content-center">`);
+  $(`.${whom}.topRow`) // topRow
     .append(`<div class="col">
       <div class="row container-fluid ${whom} armorPlusLevel">
         <div class="col vertAlign"><p>${whomUpPosses} Level</p></div>
@@ -52,8 +52,8 @@ function makeSkeleton(whom) {
       </div>
     </div>`)
     .append(`<div class="col vertAlign justify-content-center"><select class="${whom} heroSelect"></select></div>`)
-    .append(`<div class="col vertAlign" id="${whom}AttrSpot"></div>`);
-  $(`.${whom}.dpsRow`)
+    .append(`<div class="col vertAlign" id="${whom}AttrSpot"></div>`);  // !topRow
+  $(`.${whom}.dpsRow`) // dps row
     .append(`<div class="col"><span><button onclick='updateDPS("${whom}", "${whomLowPosses}Button")'>DPS</button></span></div>`)
     .append(`<div class="col"><div class="box"><p id="${whom}DPS">Over 9000!</p></div></div>`)
     .append(`<div class="col justify-content-center vertAlign ${whom} towerChecks"></div>`);
@@ -113,7 +113,7 @@ function makeAttrs(whom) {
     let icon = `40px-${ATTR_DICT[atr][1]}_attribute_symbol.png`
     $(spot).children().append(`<div class="col justify-content-center vertAlign"><p class=${atr}></p></div>`);
     // $(spot).children().append(`<div class="col"><p>${atr}</p></div>`);
-    $(spot).children().append(`<div class="col"><img src=assets/${icon}></div>`);
+    $(spot).children().append(`<div class="col"><img class="${whom} ${atr}Icon"src=assets/${icon}></div>`);
     $(spot).children().append('<div class="w-100"></div>');
   });
 };
