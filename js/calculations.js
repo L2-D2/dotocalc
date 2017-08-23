@@ -26,10 +26,10 @@ function calc_final_armor(base, agi, tower, aura_armor, reduction) {
   return armor;
 };
 
-function calc_level_stats(hero, level) {
+function calc_level_stats(heroID, level) {
   // base_stats = [str,agi,int,
   //                str_gain,agi_gain,int_gain]
-  var base_stats = find_hero_base_stats(hero);
+  var base_stats = find_hero_base_stats(heroID);
   var new_stats = [
     base_stats[0]+(base_stats[3]*level),
     base_stats[1]+(base_stats[4]*level),
@@ -62,7 +62,7 @@ function calc_special_bonus(specialObj) {
   };
   ATTRS.forEach(function(a,i) {
     let short = "bonus_"+a;
-    let long = ATTR_DICT[a];
+    let long = ATTR_DICT[a][0];
     store_values[long] += (store_values[short] || 0);
     delete store_values[short];
   });
@@ -87,7 +87,7 @@ function calc_dps(whom, parent) {
   var attrs_effective = new Array;
   // effective attrs = current + bonus
   ATTRS.forEach( function(a,i){
-    attrs_effective[i] = attrs_current[i]+itemBonusObj[ ATTR_DICT[a] ]
+    attrs_effective[i] = attrs_current[i]+itemBonusObj[ ATTR_DICT[a][0] ]
   });
   // is there bonus_attack_speed? yes: agi + bonus; no: agi
   var attack_speed =
@@ -107,6 +107,12 @@ function calc_dps(whom, parent) {
 
   var dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
   return (dmg_main * hz_attack).toFixed(4);
+};
+
+function calc_scalar_armor(armor, armorClass, attkType) {
+  // Damage multiplier = 1 - 0.06 × armor ÷ (1 + 0.06 × |armor|)
+  let scalar = (1-0.06*armor)/(1+0.06*Math.abs(armor));
+  return scalar;
 };
 
 function calc_dmg_base_avg (min, max) {
