@@ -1,21 +1,18 @@
-# DotoCoa
+# [DotoCalc](dotocalc.html)
 
-is software for making doto coaching easier
-
-## [DotoCalc](dotocalc.html)
-
-### It Does:
+## It Does:
 
 * Can choose hero
 * Can find stats from hero and level
 * Can select items
 * Calculates bonus dmg from items
+* Calculates bonus attack speed from items
 
-### It Should:
+## It Should:
 
 * calculate other bonuses from items
-    * Bonus stats
-    * Crits
+  * Bonus stats
+  * Crits
 * Care about armor at all
 * have a bunch of sliders for adjusting levels and skill builds and shit
 * look at draft compatability
@@ -26,8 +23,6 @@ is software for making doto coaching easier
 * help find lacking areas to improve
 	* heroes to practice
 	* strategies to try
-### Notes:
+## Notes:
 
-In chrome you will need to use `--allow-file-access-from-files` launch option to run this locally.
-
-
+In chrome you will need to use the `--allow-file-access-from-files` launch option to run this locally.
