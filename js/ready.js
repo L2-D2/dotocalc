@@ -1,6 +1,7 @@
 var HEROES, ITEMS, YOU, THEM;
-var heroJSON = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json";
-var itemJSON = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/items.json";
+var HEROJSONURL = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json";
+var ITEMJSONURL = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/items.json";
+
 const PLAYERS = ["you", "them"];
 const PLAYER_DICT = {
   you: {
@@ -87,7 +88,7 @@ function makeTowerRadios(whom) {
     );
   });
 };
-
+HEROJSONURL
 function makeHeroOptions() {
   for (var key in HEROES.DOTAHeroes) {
     var hero = HEROES.DOTAHeroes[key];
@@ -143,14 +144,7 @@ function makeAttrs(whom) {
   });
 };
 
-function jsonNonsense(json) {
-  return $.ajax({
-    url: json,
-    datatype: "json",
-  });
-}
-
-$.when(jsonNonsense(heroJSON), jsonNonsense(itemJSON)).done(function(h,i) {
+$.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
   HEROES = JSON.parse(h[0]);
   ITEMS = JSON.parse(i[0]);
   PLAYERS.forEach( function(p) {

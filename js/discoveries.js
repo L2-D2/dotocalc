@@ -1,3 +1,10 @@
+function find_JSON(jsonURL) {
+  return $.ajax({
+    url: jsonURL,
+    datatype: "json",
+  });
+};
+
 function yank_hero_obj(id) {
   // Should return the object of the hero given the id
   var heroObj;
@@ -5,7 +12,7 @@ function yank_hero_obj(id) {
     HEROES.DOTAHeroes[hero].HeroID == id ? heroObj = HEROES.DOTAHeroes[hero] : null;
   };
   return heroObj;
-}
+};
 
 function yank_item_IDs(whom) {
   let itemIDs = new Array;
