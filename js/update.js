@@ -2,11 +2,11 @@ function updateAttrs(whom) {
   let spot = `#${whom}AttrSpot`;
   let heroID = $(`.${whom}.heroSelect`).val();
   let lvl = parseInt($(`#${whom}Level`).text());
-  let stats = calc_level_stats(heroID, lvl);
-  // console.log(spot)
-  stats.forEach(function(val, i) {
-    var cleanVal = val.toFixed(1);
-    $(spot).find(`p.${ATTRS[i]}`).text(cleanVal);
+  let levelStats = calc_level_stats(heroID, lvl);
+  let itemBonusObj = calc_special_bonus( find_items_special(whom) ).stats;
+  levelStats.forEach(function(val, i) {
+    let bonusVal = itemBonusObj.bonus_all_stats + itemBonusObj[ATTR_DICT[ATTRS[i]][0]];
+    $(spot).find(`p.${ATTRS[i]}`).text((val+bonusVal).toFixed(1));
   });
 };
 

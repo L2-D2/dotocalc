@@ -43,6 +43,7 @@ function yank_item_special(id) {
 };
 
 function yank_current_attrs(whom) {
+  updateAttrs(whom);
   let attrs = new Array;
   var spot = `#${whom}AttrSpot`;
   ATTRS.forEach( function(attr, i) {
