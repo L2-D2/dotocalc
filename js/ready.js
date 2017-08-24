@@ -72,13 +72,17 @@ function makeSkeleton(whom) {
   $(`.${whom}.towers`)
     .append(`<div class="col vertAlign justify-content-center">Tower Aura?</div>`)
     .append(`<div class="col vertAlign justify-content-center ${whom} towerChecks"></div>`);
+};
+
+function makeTowerRadios(whom) {
   [0,1,2,3].forEach(function(i) {
     let words = ( i==0 ? "No" : `T${i}` );
     $(`.${whom}.towerChecks`).append(
       `<span class="${whom}T${i}Check">
         ${words}?
         <input name="${whom}Tower" class="${whom}Radio" value="${i}" type="radio"/>
-      </span>`);
+      </span>`
+    );
   });
 };
 
@@ -147,6 +151,7 @@ $(document).ready( function() {
   });
   PLAYERS.forEach( function(p) {
     makeSkeleton(p);
+    makeTowerRadios(p);
     makeItemSelects(p);
     makeAttrs(p);
     makeArmorText(p);

@@ -34,9 +34,12 @@ function updateArmor(whom) {
 }
 
 function updateEverything(whom, event) {
+  let otherWhom = (whom=="you"?"them":"you");
   updateAttrs(whom);
-  updateDPS(whom, event);
   updateArmor(whom);
+  updateArmor(otherWhom);
+  updateDPS(whom, event);
+  updateDPS(otherWhom, event);
 }
 
 window.onload = function() {
@@ -51,6 +54,9 @@ window.onload = function() {
     });
     $(`.${i}.itemDrop`).on("selectmenuchange", function(e) {
       updateEverything(i,e);
+    });
+    $(`input.${i}Radio`).change( function(e) {
+      updateEverything(i);
     });
     updateAttrs(i);
     updateAttrIcons(i);

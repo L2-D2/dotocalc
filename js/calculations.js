@@ -93,6 +93,7 @@ function calc_dps(whom, parent) {
   //    × armor value multiplier × armor type multiplier
   //    × general damage multipliers) x attacks per second
 
+  let otherWhom = ( whom=="you"? "them": "you");
   let itemBonusObj = calc_special_bonus( find_items_special(whom) );
   let heroObj = yank_hero_obj( yank_hero_ID(whom) );
   let heroAttr = ATTR_DICT[heroObj.AttributePrimary];
@@ -111,13 +112,13 @@ function calc_dps(whom, parent) {
   let dmg_attr = attrs_effective[ ATTRS.indexOf(heroAttr) ];
   let scalar_crit;
   let dmg_blocked;
-  let scalar_armor;
+  let scalar_armor_other = calc_scalar_armor(yank_current_armor(otherWhom));
   let scalar_armor_type;
   let scalar_general;
   let hz_attack = (100 + attack_speed) * 0.01 / parseFloat(heroObj.AttackRate);
   let dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
 
-  return (dmg_main * hz_attack).toFixed(4);
+  return ((dmg_main * hz_attack)*scalar_armor_other).toFixed(4);
 };
 
 function calc_scalar_armor(armor, armorClass, attkType) {

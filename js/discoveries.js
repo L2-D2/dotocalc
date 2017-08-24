@@ -42,6 +42,8 @@ function yank_item_special(id) {
   return bons
 };
 
+function yank_current_armor(whom) { return parseFloat($( `.${whom}.armorVal` ).text()) };
+
 function yank_current_attrs(whom) {
   updateAttrs(whom);
   let attrs = new Array;
