@@ -21,7 +21,7 @@
 // }
 
 function calc_final_armor(base, agi, tower, aura_armor, reduction) {
-  var bonus_armor_tower = tower == 0 ? 0 : tower == 1 ? 1 : 3;
+  var bonus_armor_tower = ( tower == 0 ? 0 : tower == 1 ? 1 : 3 );
   var armor = base + agi/7 + bonus_armor_tower + aura_armor - reduction;
   return armor;
 };
@@ -38,26 +38,21 @@ function calc_level_stats(heroID, level) {
   return new_stats;
 };
 
-function calc_special_bonus(specialObj) {
+function calc_special_bonus(specialObj, why) {
   // SpecialObj = { item1: { count: [1..6], special: [special_array] }, item2: {} }
-  var RELEVANTBONUSES = [
-    "bonus_damage",
-    "bonus_attack_speed",
-    "bonus_strength",
-    "bonus_agility",
-    "bonus_intellect"
-  ];
+  var RELEVANTBONUSES = ( why == "armor" ?
+    ["bonus_armor", "armor_aura"]
+  : ["bonus_damage", "bonus_attack_speed", "bonus_strength", "bonus_agility", "bonus_intellect"]
+  );
   var store_values = new Object;
   var bonus_values = new Object;
   for (let item in specialObj) {
     specialObj[item].special.forEach( function(o,i) {
       let bonus_name = Object.keys(o)[0];
       let bonusObj = specialObj[item].special[i];
-      store_values.hasOwnProperty(bonus_name) ? (
+      store_values.hasOwnProperty(bonus_name) ?
         store_values[bonus_name] += (bonusObj[bonus_name]*specialObj[item].count)
-      ) : (
-        store_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count)
-      );
+      : store_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count);
     });
   };
   ATTRS.forEach(function(a,i) {
@@ -81,7 +76,7 @@ function calc_dps(whom, parent) {
   //    × general damage multipliers) x attacks per second
 
   var itemBonusObj = calc_special_bonus( find_items_special(whom) );
-  var heroObj = yank_hero_obj( $(whom + ", .heroSelect" ).val() );
+  var heroObj = yank_hero_obj( $(`.${whom}.heroSelect` ).val() );
   var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
   var attrs_current = yank_current_attrs(whom);
   var attrs_effective = new Array;
@@ -93,7 +88,7 @@ function calc_dps(whom, parent) {
   var attack_speed =
     itemBonusObj.bonus_attack_speed ?
       attrs_effective[1] + itemBonusObj.bonus_attack_speed
-      :attrs_effective[1];
+    : attrs_effective[1];
   var dmg_base = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
   var dmg_bonus_percent;
   var dmg_bonus_flat = itemBonusObj.bonus_damage || 0;
@@ -104,8 +99,8 @@ function calc_dps(whom, parent) {
   var scalar_armor_type;
   var scalar_general;
   var hz_attack = (100 + attack_speed) * 0.01 / parseFloat(heroObj.AttackRate);
-
   var dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
+
   return (dmg_main * hz_attack).toFixed(4);
 };
 
