@@ -12,7 +12,7 @@ function updateAttrs(whom) {
 
 function updateAttrIcons(whom) {
   let spot = `#${whom}AttrSpot`;
-  let heroID = $(`.${whom}.heroSelect`).val();
+  let heroID = yank_hero_ID(whom);
   let heroObj = yank_hero_obj(heroID);
   let attrPrime = ATTR_DICT[heroObj.AttributePrimary];
   ATTRS.forEach(function(a) {
@@ -42,7 +42,7 @@ function updateEverything(whom, event) {
   updateDPS(otherWhom, event);
 }
 
-window.onload = function() {
+function START() {
   PLAYERS.forEach( function(i) {
     $(`.heroSelect.${i}`).on("selectmenuchange", function(e) {
       updateEverything(i,e);
