@@ -1,5 +1,7 @@
 body {
-  padding-top: 5rem;
+  font-size: 12pt;
+  padding-top: 4rem;
+  line-height: 1.17rem;
 }
 
 input[type="checkbox"] {
@@ -10,14 +12,30 @@ input[type="radio"] {
     margin: 0rem 0.5rem;
 }
 
+p {
+  margin-bottom: 0;
+}
+
+.navbar {
+  /*padding: 0.5rem;*/
+}
+
+.btn {
+  padding: 0.25rem;
+}
+
+.form-control {
+  /*padding: 0.25rem;*/
+}
+
 .vertAlign {
   display: flex;
   align-items: center;
 }
 
 .container-fluid {
-  margin: .5rem 3rem
-  padding: 3rem 1.5rem;
+  /*margin: .5rem 3rem;
+  padding: 3rem 1.5rem;*/
   text-align: center;
 }
 
@@ -39,8 +57,4 @@ input[type="radio"] {
 
 .heroSelect {
   margin-bottom: 1.5rem;
-}
-
-p {
-  margin-bottom: 0;
 }
