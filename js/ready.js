@@ -45,7 +45,7 @@ function makeSkeleton(whom) {
         </div>
       </span>`)
       .append(
-        `<span =class="row">
+        `<span class="row">
           <div class="col">
             <div class="row container-fluid ${whom} armorPlusLevel">
               <div class="col vertAlign"><p>${whomPossessive} Level</p></div>
