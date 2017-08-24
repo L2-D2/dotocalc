@@ -20,10 +20,19 @@
 //   "MovementTurnRate": "0.500000",
 // }
 
-function calc_final_armor(base, agi, tower, aura_armor, reduction) {
-  var bonus_armor_tower = ( tower == 0 ? 0 : tower == 1 ? 1 : 3 );
-  var armor = base + agi/7 + bonus_armor_tower + aura_armor - reduction;
-  return armor;
+function calc_final_armor(p) {
+  let tower = $(`.${p}.towerChecks`).find(":checked").val();
+  tower = ( typeof(tower) === "undefined" ? 0 : tower );
+  let heroObj = yank_hero_obj( yank_hero_ID(p) );
+  let armor_base = parseFloat(heroObj.ArmorPhysical);
+  let armor_bonus_tower = ( tower == "0" ? 0 : tower == "1" ? 1 : 3 );
+  let armor_bonus_obj = calc_special_bonus( find_items_special(p) ).armor;
+  let armor_bonus = 0;
+  for (let o in armor_bonus_obj) armor_bonus += armor_bonus_obj[o];
+  let agi = yank_current_attrs(p)[1];
+  let armor_agi = (yank_current_attrs(p)[1])/7;
+  console.log(tower, armor_bonus_tower)
+  return ( armor_base + armor_agi + armor_bonus_tower + armor_bonus ).toFixed(2);
 };
 
 function calc_level_stats(heroID, level) {
@@ -38,14 +47,26 @@ function calc_level_stats(heroID, level) {
   return new_stats;
 };
 
-function calc_special_bonus(specialObj, why) {
+function special_bonus_stat_chomper(values) {
+  ATTRS.forEach(function(a,i) {
+    let short = "bonus_"+a;
+    let long = ATTR_DICT[a][0];
+    values[long] += ( values[short] || 0 );
+    delete values[short];
+  })
+  return values;
+}
+
+function calc_special_bonus(specialObj) {
   // SpecialObj = { item1: { count: [1..6], special: [special_array] }, item2: {} }
-  var RELEVANTBONUSES = ( why == "armor" ?
-    ["bonus_armor", "armor_aura"]
-  : ["bonus_damage", "bonus_attack_speed", "bonus_strength", "bonus_agility", "bonus_intellect"]
-  );
-  var store_values = new Object;
+  let RELEVANTBONUSES = {
+    armor: {bonus_armor: 0, armor_aura: 0},
+    dmg: {bonus_damage: 0, bonus_attack_speed: 0},
+    stats: {bonus_strength: 0, bonus_agility: 0, bonus_intellect: 0, bonus_all_stats: 0}
+  };
   var bonus_values = new Object;
+  var store_values = new Object;
+
   for (let item in specialObj) {
     specialObj[item].special.forEach( function(o,i) {
       let bonus_name = Object.keys(o)[0];
@@ -55,17 +76,13 @@ function calc_special_bonus(specialObj, why) {
       : store_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count);
     });
   };
-  ATTRS.forEach(function(a,i) {
-    let short = "bonus_"+a;
-    let long = ATTR_DICT[a][0];
-    store_values[long] += (store_values[short] || 0);
-    delete store_values[short];
-  });
-  RELEVANTBONUSES.forEach(function(bon) {
-    bonus_values[bon] = store_values[bon] || 0;
-  });
-  // bonus_values = { bonus1: total-value, bonus2: total-value.. }
-  return bonus_values;
+  store_values = special_bonus_stat_chomper(store_values);
+  for (let cat in RELEVANTBONUSES) {
+    for (let bon in RELEVANTBONUSES[cat]) {
+      RELEVANTBONUSES[cat][bon] = ( store_values[bon] ? store_values[bon] : 0 )
+    };
+  };
+  return RELEVANTBONUSES;
 };
 
 function calc_dps(whom, parent) {
@@ -75,31 +92,29 @@ function calc_dps(whom, parent) {
   //    × armor value multiplier × armor type multiplier
   //    × general damage multipliers) x attacks per second
 
-  var itemBonusObj = calc_special_bonus( find_items_special(whom) );
-  var heroObj = yank_hero_obj( $(`.${whom}.heroSelect` ).val() );
-  var heroAttr = ATTR_DICT[heroObj.AttributePrimary];
-  var attrs_current = yank_current_attrs(whom);
-  var attrs_effective = new Array;
+  let itemBonusObj = calc_special_bonus( find_items_special(whom) );
+  let heroObj = yank_hero_obj( yank_hero_ID(whom) );
+  let heroAttr = ATTR_DICT[heroObj.AttributePrimary];
+  let attrs_current = yank_current_attrs(whom);
+  let attrs_effective = new Array;
   // effective attrs = current + bonus
   ATTRS.forEach( function(a,i){
-    attrs_effective[i] = attrs_current[i]+itemBonusObj[ ATTR_DICT[a][0] ]
+    attrs_effective[i] = ( attrs_current[i]+itemBonusObj.stats[ ATTR_DICT[a][0] ]+itemBonusObj.stats.bonus_all_stats )
   });
   // is there bonus_attack_speed? yes: agi + bonus; no: agi
-  var attack_speed =
-    itemBonusObj.bonus_attack_speed ?
-      attrs_effective[1] + itemBonusObj.bonus_attack_speed
-    : attrs_effective[1];
-  var dmg_base = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
-  var dmg_bonus_percent;
-  var dmg_bonus_flat = itemBonusObj.bonus_damage || 0;
-  var dmg_attr = attrs_effective[ ATTRS.indexOf(heroAttr) ];
-  var scalar_crit;
-  var dmg_blocked;
-  var scalar_armor;
-  var scalar_armor_type;
-  var scalar_general;
-  var hz_attack = (100 + attack_speed) * 0.01 / parseFloat(heroObj.AttackRate);
-  var dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
+  let attack_speed = attrs_effective[1] + itemBonusObj.dmg.bonus_attack_speed;
+  let armor_other
+  let dmg_base = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
+  let dmg_bonus_percent;
+  let dmg_bonus_flat = itemBonusObj.dmg.bonus_damage || 0;
+  let dmg_attr = attrs_effective[ ATTRS.indexOf(heroAttr) ];
+  let scalar_crit;
+  let dmg_blocked;
+  let scalar_armor;
+  let scalar_armor_type;
+  let scalar_general;
+  let hz_attack = (100 + attack_speed) * 0.01 / parseFloat(heroObj.AttackRate);
+  let dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
 
   return (dmg_main * hz_attack).toFixed(4);
 };
