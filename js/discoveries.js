@@ -16,6 +16,8 @@ function yank_item_IDs(whom) {
   return itemIDs;
 };
 
+function yank_hero_ID(whom) { return $( `.${whom}.heroSelect` ).val() };
+
 function find_hero_base_stats(heroNum) {
   var base_stats;
   var heroObj = yank_hero_obj(heroNum);
