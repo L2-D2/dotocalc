@@ -30,7 +30,7 @@ function updateDPS(whom, parent) {
 function updateArmor(whom) {
   let armorClass = ARMORTYPES[1];
   $(`p.${whom}.armorText`).text(`${armorClass} Armor`);
-  $(`.${whom}.armorVal`).text(calc_final_armor(whom));
+  $(`.${whom}.armorVal`).text(calc_player_armor(whom));
 }
 
 function updateEverything(whom, event) {

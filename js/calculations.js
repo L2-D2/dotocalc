@@ -20,7 +20,7 @@
 //   "MovementTurnRate": "0.500000",
 // }
 
-function calc_final_armor(p) {
+function calc_player_armor(p) {
   let tower = $(`.${p}.towerChecks`).find(":checked").val();
   tower = ( typeof(tower) === "undefined" ? 0 : tower );
   let heroObj = yank_hero_obj( yank_hero_ID(p) );
@@ -47,18 +47,20 @@ function calc_level_stats(heroID, level) {
   return new_stats;
 };
 
-function special_bonus_stat_chomper(values) {
-  ATTRS.forEach(function(a,i) {
-    let short = "bonus_"+a;
-    let long = ATTR_DICT[a][0];
-    values[long] += ( values[short] || 0 );
-    delete values[short];
-  })
-  return values;
-}
 
 function calc_special_bonus(specialObj) {
   // SpecialObj = { item1: { count: [1..6], special: [special_array] }, item2: {} }
+
+  function special_bonus_stat_chomper(values) {
+    ATTRS.forEach(function(a,i) {
+      let short = "bonus_"+a;
+      let long = ATTR_DICT[a][0];
+      values[long] += ( values[short] || 0 );
+      delete values[short];
+    })
+    return values;
+  }
+
   let RELEVANTBONUSES = {
     armor: {bonus_armor: 0, armor_aura: 0},
     dmg: {bonus_damage: 0, bonus_attack_speed: 0},
