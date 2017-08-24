@@ -74,7 +74,11 @@ function makeSkeleton(whom) {
     .append(`<div class="col vertAlign justify-content-center ${whom} towerChecks"></div>`);
   [0,1,2,3].forEach(function(i) {
     let words = ( i==0 ? "No" : `T${i}` );
-    $(`.${whom}.towerChecks`).append(`<span class="t${i}Check">${words}?<input name="${whom}Tower" value="${i}" type="radio"></input></span>`);
+    $(`.${whom}.towerChecks`).append(
+      `<span class="${whom}T${i}Check">
+        ${words}?
+        <input name="${whom}Tower" class="${whom}Radio" value="${i}" type="radio"/>
+      </span>`);
   });
 };
 
