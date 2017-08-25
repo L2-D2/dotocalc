@@ -49,7 +49,11 @@ function yank_item_special(id) {
   return bons
 };
 
-function yank_current_armor(whom) { return parseFloat($( `.${whom}.armorVal` ).text()) };
+function yank_current_armor(whom) {
+  let armorText = $( `.${whom}.armorVal` ).text();
+  armorText = armorText == "??" ? 0 : parseFloat(armorText);
+  return armorText;
+};
 
 function yank_current_attrs(whom) {
   updateAttrs(whom);

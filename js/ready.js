@@ -165,5 +165,6 @@ $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
   });
   $("button").button();
   $("select").selectmenu();
+  fix_quarterstaff();
   START();
 });
