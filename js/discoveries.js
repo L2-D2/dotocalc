@@ -25,6 +25,17 @@ function yank_item_IDs(whom) {
 
 function yank_hero_ID(whom) { return $( `.${whom}.heroSelect` ).val() };
 
+function yank_hero_Level(whom) {
+  var value = $(`#${whom}Level`).val();
+  if (isNaN(value) || value < 1) {
+    value = $(`#${whom}LevelSlider`).slider("value");
+    $(`#${whom}Level`).val(value);
+  } else if (value > 25) {
+    value = 25;
+  };
+  return value
+}
+
 function find_hero_base_stats(heroNum) {
   var base_stats;
   var heroObj = yank_hero_obj(heroNum);
