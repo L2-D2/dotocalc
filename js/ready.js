@@ -29,7 +29,7 @@ const ATTR_DICT = {
 function Player(whom) {
   this.heroID = $(`.${whom}.heroSelect`).val();
   this.heroObj = yank_hero_obj(this.heroID);
-  this.heroLevel = parseInt($(`#${whom}Level`).text());
+  this.heroLevel = parseInt($(`#${whom}Level`).val());
   this.lvlAttrs = calc_level_stats(this.heroID, this.heroLevel);
   this.effectiveArmor = 0;
 }
@@ -55,7 +55,7 @@ function makeSkeleton(whom) {
                 <label for="${whom}Level">${whomPossessive} Level</label>
               </div>
               <div class="col">
-                <input type="text" class="form-control" id="${whom}Level" placeholder="1" autocomplete="off" maxlength="2" pattern="[0-9][0-9]">
+                <input type="text" class="form-control" id="${whom}Level" autocomplete="off" maxlength="2" pattern="[0-9][0-9]">
               </div>
               <span class="w-100"></span>
             </div>
@@ -146,6 +146,15 @@ function makeAttrs(whom) {
   });
 };
 
+function makeSliders(p) {
+  $(`#${p}LevelSlider`).slider({
+    max: 25,
+    min: 1,
+    value: 1
+  });
+  $(`#${p}Level`).val(1);
+};
+
 $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
   HEROES = JSON.parse(h[0]);
   ITEMS = JSON.parse(i[0]);
@@ -155,16 +164,12 @@ $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
     makeItemSelects(p);
     makeAttrs(p);
     makeArmorText(p);
+    makeSliders(p);
   });
   // playerArray.push(new Player(p));
   // [YOU, THEM] = playerArray;
   makeHeroOptions();
   makeItemOptions();
-  $(".lvlSlider").slider({
-    max: 25,
-    min: 1,
-    value: 1
-  });
   $("button").button();
   $("select").selectmenu();
   fix_quarterstaff();
