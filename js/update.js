@@ -1,7 +1,7 @@
 function updateAttrs(whom) {
   let spot = `#${whom}AttrSpot`;
   let heroID = $(`.${whom}.heroSelect`).val();
-  let lvl = parseInt($(`#${whom}Level`).text());
+  let lvl = parseInt($(`#${whom}Level`).val());
   let levelStats = calc_level_stats(heroID, lvl);
   let itemBonusObj = calc_special_bonus( find_items_special(whom) ).stats;
   levelStats.forEach(function(val, i) {
@@ -49,8 +49,14 @@ function START() {
       updateAttrIcons(i);
     });
     $(`#${i}LevelSlider`).on("slide", function(e, ui) {
-      $(`#${i}Level`).text(ui.value);
+      $(`#${i}Level`).val(ui.value);
       updateEverything(i,e);
+    });
+    $(`#${i}Level`).on("change", function(e, ui) {
+      let newValue = yank_hero_Level(i);
+      $(`#${i}Level`).val(newValue);
+      $(`#${i}LevelSlider`).slider("value", newValue);
+      updateEverything(i, e);
     });
     $(`.${i}.itemDrop`).on("selectmenuchange", function(e) {
       updateEverything(i,e);
@@ -60,5 +66,6 @@ function START() {
     });
     updateAttrs(i);
     updateAttrIcons(i);
+    updateEverything(i);
   });
 };
