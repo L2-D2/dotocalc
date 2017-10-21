@@ -51,9 +51,11 @@ function makeSkeleton(whom) {
         `<span class="row">
           <div class="col">
             <div class="row container-fluid ${whom} armorPlusLevel">
-              <div class="col vertAlign"><p>${whomPossessive} Level</p></div>
+              <div class="col vertAlign">
+                <label for="${whom}Level">${whomPossessive} Level</label>
+              </div>
               <div class="col">
-                <p class="box " id="${whom}Level">1</p>
+                <input type="text" class="form-control" id="${whom}Level" placeholder="1" autocomplete="off" maxlength="2" pattern="[0-9][0-9]">
               </div>
               <span class="w-100"></span>
             </div>
