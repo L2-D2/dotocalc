@@ -14,6 +14,20 @@ function yank_hero_obj(id) {
   return heroObj;
 };
 
+function find_item_name(obj, key) {
+  if (obj.ItemAliases == undefined) return key;
+  let k = 0;
+  let name = "";
+  let aliases = obj.ItemAliases.split(";");
+  aliases.forEach( function(alias) {
+    if (alias.length > k) {
+      k = alias.length;
+      name = alias;
+    };
+  });
+  return name;
+};
+
 function yank_item_IDs(whom) {
   let itemIDs = new Array;
   // itemIDs: the 6 items in an array as item.IDs

@@ -106,7 +106,8 @@ function makeItemOptions() {
   for (var key in ITEMS.DOTAAbilities) {
     var itemObj = ITEMS.DOTAAbilities[key];
     if ( itemObj.ID && !itemObj.ItemRecipe && (itemObj.ItemAliases != "paint") ) {
-      $(".itemDrop").append(`<option value=${itemObj.ID}>${key}</option>`);
+      let itemName = find_item_name(itemObj, key)
+      $(".itemDrop").append(`<option value=${itemObj.ID}>${itemName}</option>`);
     };
   };
   // for future sorting options:
