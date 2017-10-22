@@ -84,7 +84,7 @@ function makeTowerRadios(whom) {
     let words = ( i==0 ? "No" : `T${i}` );
     $(`.${whom}.towerChecks`).append(
       `<span class="${whom}T${i}Check">
-        ${words}?
+        ${words}
         <input name="${whom}Tower" class="${whom}Radio" value="${i}" type="radio"/>
       </span>`
     );
