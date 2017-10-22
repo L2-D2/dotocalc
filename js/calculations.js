@@ -118,7 +118,7 @@ function calc_dps(whom, parent) {
   let hz_attack = (100 + attack_speed) * 0.01 / parseFloat(heroObj.AttackRate);
   let dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
 
-  return ((dmg_main * hz_attack)*scalar_armor_other).toFixed(4);
+  return [dmg_main, hz_attack, scalar_armor_other];
 };
 
 function calc_scalar_armor(armor, armorClass, attkType) {

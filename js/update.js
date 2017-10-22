@@ -22,9 +22,12 @@ function updateAttrIcons(whom) {
 }
 
 function updateDPS(whom, parent) {
-  var spot = `#${whom}DPS`;
-  var dps = calc_dps(whom, parent);
-  $(spot).text(dps);
+  let dpsVars = calc_dps(whom, parent);
+  let dmg_main = dpsVars[0], hz_attack = dpsVars[1], scalar_armor_other = dpsVars[2];
+  let dps = ((dmg_main * hz_attack)*scalar_armor_other);
+  $(`#${whom}DMG`).text(dmg_main.toFixed(2));
+  $(`#${whom}hz_attack`).text(hz_attack.toFixed(4))
+  $(`#${whom}DPS`).text(dps.toFixed(4));
 }
 
 function updateArmor(whom) {

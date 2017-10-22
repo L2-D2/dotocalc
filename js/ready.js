@@ -71,12 +71,12 @@ function makeSkeleton(whom) {
       .append(`<span>Pocket Riki? <input type="checkbox"></input></span>`)
       .append(`<span class="row ${whom} dpsRow vertAlign justify-content-center">`);
   $(`.${whom}.dpsRow`) // dps row
+    .append(`<div class="col box"><p id=${whom}DMG>Over 9000!</p></div>`)
+    .append('<div class="col"><p>dmg x</p></div>')
+    .append(`<div class="col box"<p id=${whom}hz_attack>5?</p></div>`)
+    .append('<div class="col"><p>attk/s =</p></div>')
+    .append(`<div class="col box"><p id="${whom}DPS">Over 9000!</p></div>`)
     .append(`<div class="col"><span><button onclick='updateDPS("${whom}", "${whomPossessiveSafe}Button")'>DPS</button></span></div>`)
-    .append(`<div class="col"><div class="box"><p id="${whom}DPS">Over 9000!</p></div></div>`)
-    .append(`<div class="col justify-content-center vertAlign ${whom} towers"></div>`);
-  $(`.${whom}.towers`)
-    .append(`<div class="col vertAlign justify-content-center">Tower Aura?</div>`)
-    .append(`<div class="col vertAlign justify-content-center ${whom} towerChecks"></div>`);
 };
 
 function makeTowerRadios(whom) {
@@ -90,7 +90,7 @@ function makeTowerRadios(whom) {
     );
   });
 };
-HEROJSONURL
+
 function makeHeroOptions() {
   for (var key in HEROES.DOTAHeroes) {
     var hero = HEROES.DOTAHeroes[key];
@@ -133,6 +133,10 @@ function makeArmorText(whom) {
   var spot = `.${whom}.armorPlusLevel`;
   $(spot).append(`<div class="col justify-content-center vertAlign box"><p class="${whom} armorVal">??</p></div>`);
   $(spot).append(`<div class="col vertAlign"><p class="${whom} armorText">Hero Armor?</p></div>`);
+  $(spot).append(`<div class="col justify-content-center vertAlign ${whom} towers"></div>`);
+  $(`.${whom}.towers`)
+    .append(`<div class="col vertAlign justify-content-center">Tower Aura?</div>`)
+    .append(`<div class="col vertAlign justify-content-center ${whom} towerChecks"></div>`);
 };
 
 function makeAttrs(whom) {
@@ -161,10 +165,10 @@ $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
   ITEMS = JSON.parse(i[0]);
   PLAYERS.forEach( function(p) {
     makeSkeleton(p);
+    makeArmorText(p);
     makeTowerRadios(p);
     makeItemSelects(p);
     makeAttrs(p);
-    makeArmorText(p);
     makeSliders(p);
   });
   // playerArray.push(new Player(p));
