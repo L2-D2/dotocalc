@@ -120,7 +120,7 @@ function calc_dps(whom, parent) {
 
   return [dmg_main, hz_attack, scalar_armor_other];
 };
-vars
+
 function calc_scalar_armor(armor, armorClass, attkType) {
   // Damage multiplier = 1 - 0.06 × armor ÷ (1 + 0.06 × |armor|)
   let scalar = (1-0.06*armor)/(1+0.06*Math.abs(armor));
@@ -131,9 +131,8 @@ function calc_dmg_base_avg (min, max) {
   min = parseFloat(min);
   max = parseFloat(max);
   var avg = (min+max)/2;
-  // return avg;
-  var rand_int = Math.floor(Math.random() * 420);
-  var valSum = 0;
-  for (let i = 0; i < rand_int; i++) { valSum += (Math.random() * (max - min) + avg) };
-  return [avg, (valSum / (parseFloat(rand_int)))];
+  var rand_int = Math.floor(Math.random() * 42);
+  var sum = 0;
+  for (let i = 0; i < rand_int; i++) { sum += ((Math.random() * (max - min)) + min) };
+  return [avg, (sum /rand_int)];
 };
