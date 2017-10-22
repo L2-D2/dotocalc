@@ -103,21 +103,21 @@ function makeHeroOptions() {
 };
 
 function makeItemOptions() {
+  let items = new Object();
+  items.names = new Array();
   for (var key in ITEMS.DOTAAbilities) {
     var itemObj = ITEMS.DOTAAbilities[key];
     if ( itemObj.ID && !itemObj.ItemRecipe && (itemObj.ItemAliases != "paint") ) {
-      let itemName = find_item_name(itemObj, key)
-      $(".itemDrop").append(`<option value=${itemObj.ID}>${itemName}</option>`);
+      let itemName = find_item_name(itemObj, key);
+      items.names.push(itemName);
+      items[itemName] = itemObj.ID;
     };
   };
-  // for future sorting options:
-  // var options = $(".itemDrop option");
-  // options.detach().sort(function(a,b) {
-  //   var at = $(a).text();
-  //   var bt = $(b).text();
-  //   return (at > bt)?1:((at < bt)?-1:0);
-  // });
-  // options.appendTo(".itemDrop option");
+  items.names.sort();
+  items.names.forEach(function(i) {
+    $(".itemDrop").append(`<option value=${items[i]}>${i}</option>`);
+
+  });
 };
 
 function makeItemSelects(whom) {
@@ -169,10 +169,11 @@ $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
   });
   // playerArray.push(new Player(p));
   // [YOU, THEM] = playerArray;
+  FIX_QUIRKS();
+
   makeHeroOptions();
   makeItemOptions();
   $("button").button();
   $("select").selectmenu();
-  fix_quarterstaff();
   START();
 });
