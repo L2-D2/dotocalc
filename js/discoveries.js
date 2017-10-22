@@ -28,15 +28,6 @@ function find_item_name(obj, key) {
   return name;
 };
 
-function yank_item_IDs(whom) {
-  let itemIDs = new Array;
-  // itemIDs: the 6 items in an array as item.IDs
-  $(`.${whom}.itemSpot`).find(".itemDrop").map( function() {
-    itemIDs.push( $().add(this).val() );
-  });
-  return itemIDs;
-};
-
 function yank_hero_ID(whom) { return $( `.${whom}.heroSelect` ).val() };
 
 function yank_hero_Level(whom) {
