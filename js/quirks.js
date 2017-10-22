@@ -43,7 +43,8 @@ function remove_unwanted_items() {
     "item_dust",
     "item_clarity",
     "item_bottle",
-    "item_flask"
+    "item_flask",
+    "item_cheese"
   ]
   dead_items.forEach(function(i) {
     delete ITEMS.DOTAAbilities[i];

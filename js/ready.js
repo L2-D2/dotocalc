@@ -175,5 +175,6 @@ $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
   makeItemOptions();
   $("button").button();
   $("select").selectmenu();
+  $(".itemDrop").val(1).selectmenu("refresh");
   START();
 });
