@@ -21,8 +21,8 @@ function updateAttrIcons(whom) {
   $(spot).find(`img.${attrPrime}Icon`).attr("src", `assets/40px-${ATTR_DICT[attrPrime][1]}_primary_attribute_symbol.png`);
 }
 
-function updateDPS(whom, parent) {
-  let dpsVars = calc_dps(whom, parent);
+function updateDPS(whom) {
+  let dpsVars = calc_dps(whom);
   let dmg_main = dpsVars[0], hz_attack = dpsVars[1], scalar_armor_other = dpsVars[2];
   let dps = ((dmg_main * hz_attack)*scalar_armor_other);
   $(`#${whom}DMG`).text(dmg_main.toFixed(2));
@@ -36,39 +36,38 @@ function updateArmor(whom) {
   $(`.${whom}.armorVal`).text(calc_player_armor(whom));
 }
 
-function updateEverything(whom, event) {
-  let otherWhom = (whom=="you"?"them":"you");
-  updateAttrs(whom);
-  updateArmor(whom);
-  updateArmor(otherWhom);
-  updateDPS(whom, event);
-  updateDPS(otherWhom, event);
+function updateEverything() {
+  PLAYERS.forEach(function(p) {
+    updateAttrs(p);
+    updateArmor(p);
+    updateDPS(p)
+  });
 }
 
 function START() {
   PLAYERS.forEach( function(i) {
-    $(`.heroSelect.${i}`).on("selectmenuchange", function(e) {
-      updateEverything(i,e);
+    $(`.heroSelect.${i}`).on("selectmenuchange", function() {
+      updateEverything();
       updateAttrIcons(i);
     });
     $(`#${i}LevelSlider`).on("slide", function(e, ui) {
       $(`#${i}Level`).val(ui.value);
-      updateEverything(i,e);
+      updateEverything();
     });
-    $(`#${i}Level`).on("change", function(e, ui) {
+    $(`#${i}Level`).change( function(e, ui) {
       let newValue = yank_hero_Level(i);
       $(`#${i}Level`).val(newValue);
       $(`#${i}LevelSlider`).slider("value", newValue);
-      updateEverything(i, e);
+      updateEverything();
     });
     $(`.${i}.itemDrop`).on("selectmenuchange", function(e) {
-      updateEverything(i,e);
+      updateEverything();
     });
     $(`input.${i}Radio`).change( function(e) {
-      updateEverything(i);
+      updateEverything();
     });
     updateAttrs(i);
     updateAttrIcons(i);
-    updateEverything(i);
+    updateEverything();
   });
 };

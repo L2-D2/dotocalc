@@ -86,7 +86,7 @@ function calc_special_bonus(specialObj) {
   return RELEVANTBONUSES;
 };
 
-function calc_dps(whom, parent) {
+function calc_dps(whom) {
   //  DPS =
   //  (((main damage × (1 + Σ percentage bonus damage) + flat bonus damage)
   //    × critical strike multiplier - blocked damage )
