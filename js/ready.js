@@ -15,6 +15,7 @@ const PLAYER_DICT = {
     possessiveSafe: "their"
   }
 };
+
 const ATTRS = ["str", "agi", "int"];
 const ARMORTYPES = ["Basic", "Hero", "Siege"];
 const ATTR_DICT = {
@@ -32,7 +33,7 @@ function Player(whom) {
   this.heroLevel = parseInt($(`#${whom}Level`).val());
   this.lvlAttrs = calc_level_stats(this.heroID, this.heroLevel);
   this.effectiveArmor = 0;
-}
+};
 
 function makeSkeleton(whom) {
   let whomPossessive = PLAYER_DICT[whom].possessive;
@@ -145,7 +146,6 @@ function makeAttrs(whom) {
   ATTRS.forEach( function(atr) {
     let icon = `40px-${ATTR_DICT[atr][1]}_attribute_symbol.png`
     $(spot).children().append(`<div class="col justify-content-center vertAlign"><p class=${atr}></p></div>`);
-    // $(spot).children().append(`<div class="col"><p>${atr}</p></div>`);
     $(spot).children().append(`<div class="col"><img class="${whom} ${atr}Icon"src=assets/${icon}></div>`);
     $(spot).children().append('<div class="w-100"></div>');
   });
@@ -171,10 +171,7 @@ $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
     makeAttrs(p);
     makeSliders(p);
   });
-  // playerArray.push(new Player(p));
-  // [YOU, THEM] = playerArray;
   FIX_QUIRKS();
-
   makeHeroOptions();
   makeItemOptions();
   $("button").button();
