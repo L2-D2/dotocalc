@@ -56,7 +56,7 @@ function makeSkeleton(whom) {
                 <label for="${whom}Level">${whomPossessive} Level</label>
               </div>
               <div class="col">
-                <input type="text" class="form-control" id="${whom}Level" autocomplete="off" maxlength="2" pattern="[0-9][0-9]">
+                <input type="text" class="form-control" id="${whom}Level" autocomplete="off" maxlength="2" pattern="[0-9]?[0-9]">
               </div>
               <span class="w-100"></span>
             </div>
