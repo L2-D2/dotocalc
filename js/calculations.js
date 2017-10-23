@@ -31,7 +31,7 @@ function calc_player_armor(p) {
   for (let o in armor_bonus_obj) armor_bonus += armor_bonus_obj[o];
   let agi = yank_current_attrs(p)[1];
   let armor_agi = (yank_current_attrs(p)[1])/7;
-  return ( armor_base + armor_agi + armor_bonus_tower + armor_bonus ).toFixed(2);
+  return ( armor_base + armor_agi + armor_bonus_tower + armor_bonus ).toFixed(3);
 };
 
 function calc_level_stats(heroID, level) {
@@ -92,7 +92,7 @@ function calc_dps(whom, parent) {
   //    × critical strike multiplier - blocked damage )
   //    × armor value multiplier × armor type multiplier
   //    × general damage multipliers) x attacks per second
-
+  let randomDMG = $("#randomDMG").is(":checked") ? false : true;
   let otherWhom = ( whom=="you"? "them": "you");
   let itemBonusObj = calc_special_bonus( find_items_special(whom) );
   let heroObj = yank_hero_obj( yank_hero_ID(whom) );
@@ -107,6 +107,7 @@ function calc_dps(whom, parent) {
   let attack_speed = attrs_effective[1] + itemBonusObj.dmg.bonus_attack_speed;
   let armor_other
   let dmg_base_options = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
+  let dmg_base = randomDMG? dmg_base_options[1] : dmg_base_options[0];
   let dmg_bonus_percent;
   let dmg_bonus_flat = itemBonusObj.dmg.bonus_damage || 0;
   let dmg_attr = attrs_effective[ ATTRS.indexOf(heroAttr) ];
@@ -116,15 +117,14 @@ function calc_dps(whom, parent) {
   let scalar_armor_type;
   let scalar_general;
   let hz_attack = (100 + attack_speed) * 0.01 / parseFloat(heroObj.AttackRate);
-  let dmg_main = dmg_base_options[1] + dmg_attr + dmg_bonus_flat;
+  let dmg_main = dmg_base + dmg_attr + dmg_bonus_flat;
 
   return [dmg_main, hz_attack, scalar_armor_other];
 };
 
 function calc_scalar_armor(armor, armorClass, attkType) {
   // Damage multiplier = 1 - 0.06 × armor ÷ (1 + 0.06 × |armor|)
-  let scalar = (1-0.06*armor)/(1+0.06*Math.abs(armor));
-  return scalar;
+  return (1-0.06*armor)/(1+0.06*Math.abs(armor));
 };
 
 function calc_dmg_base_avg (min, max) {
