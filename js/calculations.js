@@ -136,3 +136,7 @@ function calc_dmg_base_avg (min, max) {
   for (let i = 0; i < rand_int; i++) { sum += ((Math.random() * (max - min)) + min) };
   return [avg, (sum /rand_int)];
 };
+
+function calc_hero_total() {
+	return Object.keys(HEROES.DOTAHeroes).length - 2;
+}
