@@ -30,7 +30,7 @@ function calc_player_armor(p) {
   let armor_bonus = 0;
   for (let o in armor_bonus_obj) armor_bonus += armor_bonus_obj[o];
   let agi = yank_current_attrs(p)[1];
-  let armor_agi = (yank_current_attrs(p)[1])/7;
+  let armor_agi = (yank_current_attrs(p)[1])/6;
   return ( armor_base + armor_agi + armor_bonus_tower + armor_bonus ).toFixed(3);
 };
 
@@ -124,7 +124,7 @@ function calc_dps(whom) {
 
 function calc_scalar_armor(armor, armorClass, attkType) {
   // Damage multiplier = 1 - 0.06 × armor ÷ (1 + 0.06 × |armor|)
-  return (1-0.06*armor)/(1+0.06*Math.abs(armor));
+  return (0.05*armor)/(1+0.05*Math.abs(armor));
 };
 
 function calc_dmg_base_avg (min, max) {
