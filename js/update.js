@@ -29,7 +29,7 @@ function dpsButton(whom) {
 function updateDPS(whom) {
   let dpsVars = calc_dps(whom);
   let dmg_main = dpsVars[0], hz_attack = dpsVars[1], scalar_armor_other = dpsVars[2];
-  let dps = ((dmg_main * hz_attack)*scalar_armor_other);
+  let dps = ((dmg_main * hz_attack)*(1-scalar_armor_other);
   $(`#${whom}DMG`).text(dmg_main.toFixed(2));
   $(`#${whom}hz_attack`).text(hz_attack.toFixed(4))
   $(`#${whom}DPS`).text(dps.toFixed(4));
