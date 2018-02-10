@@ -139,4 +139,11 @@ function calc_dmg_base_avg (min, max) {
 
 function calc_hero_total() {
 	return Object.keys(HEROES.DOTAHeroes).length - 2;
+};
+
+// returns relevant items then consumables items in an array
+function calc_item_totals() {
+  let item_total = Object.keys(ITEMS.relevant).length;
+  let consumables_total = Object.keys(ITEMS.consumables).length;
+  return [item_total, consumables_total];
 }

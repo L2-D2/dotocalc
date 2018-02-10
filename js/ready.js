@@ -106,13 +106,11 @@ function makeHeroOptions() {
 function makeItemOptions() {
   let items = new Object();
   items.names = new Array();
-  for (var key in ITEMS.DOTAAbilities) {
+  for (var key in ITEMS.relevant) {
     var itemObj = ITEMS.DOTAAbilities[key];
-    if ( itemObj.ID && !itemObj.ItemRecipe && (itemObj.ItemAliases != "paint") ) {
-      let itemName = find_item_name(itemObj, key);
-      items.names.push(itemName);
-      items[itemName] = itemObj.ID;
-    };
+    let itemName = find_item_name(itemObj, key);
+    items.names.push(itemName);
+    items[itemName] = itemObj.ID;
   };
   items.names.sort();
   items.names.forEach(function(i) {

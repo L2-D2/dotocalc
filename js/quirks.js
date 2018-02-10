@@ -28,8 +28,12 @@ function fix_alias_crimson() {
   ITEMS.DOTAAbilities.item_crimson_guard.ItemAliases = "crimson guard";
 };
 
-function remove_unwanted_items() {
-  let dead_items = [
+function parse_items() {
+  let itemKeys = Object.keys(ITEMS.DOTAAbilities);
+  ITEMS.consumables = {};
+  ITEMS.relevant = {};
+  ITEMS.recipes = {};
+  let irrelevantItems = [
     "item_courier",
     "item_flying_courier",
     "item_tango",
@@ -44,10 +48,24 @@ function remove_unwanted_items() {
     "item_clarity",
     "item_bottle",
     "item_flask",
-    "item_cheese"
-  ]
-  dead_items.forEach(function(i) {
-    delete ITEMS.DOTAAbilities[i];
+    "item_cheese",
+    "item_gem",
+    "item_tome_of_knowledge"
+  ];
+  itemKeys.forEach(function(key) {
+    let theItemObj = ITEMS.DOTAAbilities[key];
+    if (theItemObj.ItemRecipe == 1) {
+      ITEMS.recipes[key] = theItemObj;
+    };
+    if (theItemObj.ItemQuality == "consumable") {
+      ITEMS.consumables[key] = theItemObj;
+    };
+    if (theItemObj.AbilitySpecial
+    && theItemObj.AbilitySpecial[0].paint_duration == undefined
+    && !irrelevantItems.includes(key)
+    && theItemObj.ItemQuality != "consumable") {
+      ITEMS.relevant[key] = theItemObj;
+    };
   });
 };
 
@@ -58,5 +76,5 @@ function FIX_QUIRKS() {
   fix_alias_bloodthorn();
   fix_alias_ror();
   fix_alias_crimson();
-  remove_unwanted_items();
+  parse_items();
 };

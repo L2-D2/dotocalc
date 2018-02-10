@@ -14,6 +14,7 @@ function yank_hero_obj(id) {
   return heroObj;
 };
 
+// returns longest alias in given item object
 function find_item_name(obj, key) {
   if (obj.ItemAliases == undefined) return key;
   let k = 0;
