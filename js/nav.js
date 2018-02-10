@@ -8,6 +8,9 @@ function makeNavbar() {
       <li class="nav-item">
         <a class="nav-link" href="stats.html">Stats</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="about.html">About</a>
+      </li>
     </ul>`
   );
   if (title == "DotoCalc") {

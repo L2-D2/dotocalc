@@ -58,3 +58,7 @@ p {
 .heroSelect {
   margin-bottom: 1.5rem;
 }
+
+.aboutText {
+  text-align: justify;
+}
