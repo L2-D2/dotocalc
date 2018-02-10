@@ -13,7 +13,7 @@ function makeNavbar() {
   if (title == "DotoCalc") {
     $("#navlist").append(
       `<li class="nav-item">
-        <label class="nav-link" for="randomDMG"><input type="checkbox" id="randomDMG">Non-Random DMG?</label>
+        <label class="nav-link" for="randomDMG"><input type="checkbox" id="randomDMG" checked>Non-Random DMG?</label>
       </li>`
     );
   };

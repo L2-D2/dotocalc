@@ -21,6 +21,11 @@ function updateAttrIcons(whom) {
   $(spot).find(`img.${attrPrime}Icon`).attr("src", `assets/40px-${ATTR_DICT[attrPrime][1]}_primary_attribute_symbol.png`);
 }
 
+function dpsButton(whom) {
+    $("#randomDMG").prop("checked", false);
+    updateDPS(whom);
+};
+
 function updateDPS(whom) {
   let dpsVars = calc_dps(whom);
   let dmg_main = dpsVars[0], hz_attack = dpsVars[1], scalar_armor_other = dpsVars[2];
@@ -64,6 +69,9 @@ function START() {
       updateEverything();
     });
     $(`input.${i}Radio`).change( function(e) {
+      updateEverything();
+    });
+    $("#randomDMG").change( function(e) {
       updateEverything();
     });
     updateAttrs(i);

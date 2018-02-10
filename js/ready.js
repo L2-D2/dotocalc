@@ -77,7 +77,7 @@ function makeSkeleton(whom) {
     .append(`<div class="col box"<p id=${whom}hz_attack>5?</p></div>`)
     .append('<div class="col"><p>attk/s =</p></div>')
     .append(`<div class="col box"><p id="${whom}DPS">Over 9000!</p></div>`)
-    .append(`<div class="col"><span><button onclick='updateDPS("${whom}", "${whomPossessiveSafe}Button")'>DPS</button></span></div>`)
+    .append(`<div class="col"><span><button onclick='dpsButton("${whom}", "${whomPossessiveSafe}Button")'>DPS</button></span></div>`)
 };
 
 function makeTowerRadios(whom) {
