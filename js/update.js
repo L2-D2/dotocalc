@@ -84,4 +84,6 @@ function START() {
     updateAttrIcons(i);
     updateEverything();
   });
+  $(".heroSelect.you").val(104).selectmenu("refresh");
+  updateFlavorText("you");
 };
