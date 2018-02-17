@@ -164,8 +164,9 @@ function makeSliders(p) {
   $(`#${p}Level`).val(1);
 };
 
-$.when(find_JSON("json/responses.json")).done(function(i) {
-  RESPONSES = JSON.parse(i[0]);
+$.getJSON("json/responses.json").done(function(i) {
+  console.log(i);
+  RESPONSES = i;
   console.log(RESPONSES.general[4]);
 })
 
