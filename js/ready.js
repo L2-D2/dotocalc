@@ -93,14 +93,20 @@ function makeTowerRadios(whom) {
 };
 
 function makeHeroOptions() {
+  let heroes = new Object();
+  heroes.names = new Object();
   for (var key in HEROES.DOTAHeroes) {
     var hero = HEROES.DOTAHeroes[key];
     if (hero.HeroID && hero.HeroID != "127") {
       let heroNum = hero.HeroID;
       let heroName = hero.workshop_guide_name;
-      $(".heroSelect").append(`<option value=${heroNum}>${heroName}</option>`);
+      heroes.names[heroName] = heroNum;
     };
   };
+  heroes.sorted = Object.keys(heroes.names).sort();
+  heroes.sorted.forEach(function(i) {
+    $(".heroSelect").append(`<option value=${heroes.names[i]}>${i}</option>`);
+  })
 };
 
 function makeItemOptions() {
