@@ -67,6 +67,14 @@ function updateEverything() {
   });
 }
 
+function defaultLC() {
+  $(".heroSelect.you").val(104).selectmenu("refresh");
+  updateFlavorText("you");
+  updateAttrs("you");
+  updateArmor("you");
+  updateDPS("you");
+}
+
 function START() {
   PLAYERS.forEach( function(i) {
     $(`.heroSelect.${i}`).on("selectmenuchange", function() {
@@ -97,6 +105,5 @@ function START() {
     updateAttrIcons(i);
     updateEverything();
   });
-  $(".heroSelect.you").val(104).selectmenu("refresh");
-  updateFlavorText("you");
+  defaultLC();
 };
