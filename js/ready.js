@@ -42,7 +42,7 @@ function makeSkeleton(whom) {
   $(`#${whom}`).append(
       `<span class="row">
         <div class="col vertAlign justify-content-center">
-          <h2>Pick ${PLAYER_DICT[whom].pickHero}!</h2>
+          <h2 class="${whom}">Pick ${PLAYER_DICT[whom].pickHero}!</h2>
         </div>
         <div class="col vertAlign justify-content-center">
           <select class="${whom} heroSelect"></select>

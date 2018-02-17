@@ -41,6 +41,11 @@ function updateArmor(whom) {
   $(`.${whom}.armorVal`).text(calc_player_armor(whom));
 }
 
+function updateFlavorText(whom) {
+  let responseNum = Math.floor(Math.random() * RESPONSES.general.length);
+  $(`h2.${whom}`).text(RESPONSES.general[responseNum]);
+}
+
 function updateEverything() {
   PLAYERS.forEach(function(p) {
     updateAttrs(p);
@@ -53,6 +58,7 @@ function START() {
   PLAYERS.forEach( function(i) {
     $(`.heroSelect.${i}`).on("selectmenuchange", function() {
       updateEverything();
+      updateFlavorText(i);
       updateAttrIcons(i);
     });
     $(`#${i}LevelSlider`).on("slide", function(e, ui) {
