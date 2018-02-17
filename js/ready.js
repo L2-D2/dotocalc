@@ -81,8 +81,8 @@ function makeSkeleton(whom) {
 };
 
 function makeTowerRadios(whom) {
-  [0,1,2,3].forEach(function(i) {
-    let words = ( i==0 ? "No" : `T${i}` );
+  [0,1,2].forEach(function(i) {
+    let words = ( i==0 ? "No" : ( i==1 ? 'T1' : 'T2+') );
     $(`.${whom}.towerChecks`).append(
       `<span class="${whom}T${i}Check">
         ${words}

@@ -25,7 +25,7 @@ function calc_player_armor(p) {
   tower = ( typeof(tower) === "undefined" ? 0 : tower );
   let heroObj = yank_hero_obj( yank_hero_ID(p) );
   let armor_base = parseFloat(heroObj.ArmorPhysical);
-  let armor_bonus_tower = ( tower == "0" ? 0 : tower == "1" ? 1 : 3 );
+  let armor_bonus_tower = ( tower == "0" ? 0 : tower == "1" ? 2 : 3 );
   let armor_bonus_obj = calc_special_bonus( find_items_special(p) ).armor;
   let armor_bonus = 0;
   for (let o in armor_bonus_obj) armor_bonus += armor_bonus_obj[o];
