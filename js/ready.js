@@ -165,9 +165,7 @@ function makeSliders(p) {
 };
 
 $.getJSON("json/responses.json").done(function(i) {
-  console.log(i);
   RESPONSES = i;
-  console.log(RESPONSES.general[4]);
 })
 
 $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
