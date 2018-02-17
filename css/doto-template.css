@@ -62,3 +62,11 @@ p {
 .aboutText {
   text-align: left;
 }
+
+.textPositive {
+  color: green;
+}
+
+.textNegative {
+  color: red;
+}

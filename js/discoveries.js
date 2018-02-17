@@ -67,9 +67,11 @@ function yank_item_special(id) {
 };
 
 function yank_current_armor(whom) {
-  let armorText = $( `.${whom}.armorVal` ).text();
-  armorText = armorText == "??" ? 0 : parseFloat(armorText);
-  return armorText;
+  let baseText = $( `.${whom}.armorBaseVal` ).text();
+  let bonusText = $( `.${whom}.armorBonusVal` ).text();
+  baseText = baseText == "??" ? 0 : parseFloat(baseText);
+  bonusText = bonusText == "??" ? 0 : parseFloat(bonusText);
+  return baseText + bonusText;
 };
 
 function yank_current_attrs(whom) {

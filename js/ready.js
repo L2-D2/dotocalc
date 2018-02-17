@@ -136,7 +136,15 @@ function makeItemSelects(whom) {
 
 function makeArmorText(whom) {
   var spot = `.${whom}.armorPlusLevel`;
-  $(spot).append(`<div class="col justify-content-center vertAlign box"><p class="${whom} armorVal">??</p></div>`);
+  $(spot).append(`
+    <span class="row container-fluid">
+      <div class="col justify-content-center vertAlign box">
+        <p class="${whom} armorBaseVal">??</p>
+      </div>
+      <div class="col justify-content-center vertAlign box">
+        <p class="${whom} armorBonusVal">??</p>
+      </div>
+    </div>`);
   $(spot).append(`<div class="col vertAlign"><p class="${whom} armorText">Hero Armor?</p></div>`);
   $(spot).append(`<div class="col justify-content-center vertAlign ${whom} towers"></div>`);
   $(`.${whom}.towers`)

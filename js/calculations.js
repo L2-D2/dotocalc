@@ -31,7 +31,7 @@ function calc_player_armor(p) {
   for (let o in armor_bonus_obj) armor_bonus += armor_bonus_obj[o];
   let agi = yank_current_attrs(p)[1];
   let armor_agi = (yank_current_attrs(p)[1])/6;
-  return ( armor_base + armor_agi + armor_bonus_tower + armor_bonus ).toFixed(3);
+  return [( armor_base + armor_agi ).toFixed(3), ( armor_bonus_tower + armor_bonus ).toFixed(2)];
 };
 
 function calc_level_stats(heroID, level) {

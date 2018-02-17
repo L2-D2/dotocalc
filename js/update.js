@@ -37,8 +37,21 @@ function updateDPS(whom) {
 
 function updateArmor(whom) {
   let armorClass = ARMORTYPES[1];
+  let armors = calc_player_armor(whom);
+  if (armors[1] > 0) {
+    $(`.${whom}.armorBonusVal`).removeClass("textNegative");
+    $(`.${whom}.armorBonusVal`).addClass("textPositive");
+    armors[1] = `+${armors[1]}`;
+  } else if (armors[1] < 0) {
+    $(`.${whom}.armorBonusVal`).removeClass("textPositive");
+    $(`.${whom}.armorBonusVal`).addClass("textNegative");
+  } else if (armors[1] == 0) {
+    $(`.${whom}.armorBonusVal`).removeClass("textNegative");
+    $(`.${whom}.armorBonusVal`).removeClass("textPositive");
+  }
   $(`p.${whom}.armorText`).text(`${armorClass} Armor`);
-  $(`.${whom}.armorVal`).text(calc_player_armor(whom));
+  $(`.${whom}.armorBaseVal`).text(armors[0]);
+  $(`.${whom}.armorBonusVal`).text(armors[1]);
 }
 
 function updateFlavorText(whom) {
