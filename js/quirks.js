@@ -1,7 +1,16 @@
 function fix_special_quarterstaff() {
   ITEMS.DOTAAbilities.item_quarterstaff.AbilitySpecial[1].bonus_attack_speed =
     ITEMS.DOTAAbilities.item_quarterstaff.AbilitySpecial[1].bonus_speed;
+  delete ITEMS.DOTAAbilities.item_quarterstaff.AbilitySpecial[1].bonus_speed;
 };
+
+function fix_special_ac_vlads() {
+  let acSpecial = ITEMS.DOTAAbilities.item_assault.AbilitySpecial;
+  let vladSpecial = ITEMS.DOTAAbilities.item_vladmir.AbilitySpecial;
+  acSpecial.push({"aura_armor": acSpecial[4].aura_positive_armor});
+  acSpecial.push({"corruption_armor": acSpecial[5].aura_negative_armor});
+  vladSpecial.push({"aura_armor": vladSpecial[3].armor_aura});
+}
 
 function fix_alias_silver_edge() {
   let sword = ITEMS.DOTAAbilities.item_invis_sword;
@@ -71,6 +80,7 @@ function parse_items() {
 
 function FIX_QUIRKS() {
   fix_special_quarterstaff();
+  fix_special_ac_vlads()
   fix_alias_hurricane_pike();
   fix_alias_silver_edge();
   fix_alias_bloodthorn();

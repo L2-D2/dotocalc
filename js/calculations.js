@@ -21,14 +21,21 @@
 // }
 
 function calc_player_armor(p) {
+  let otherWhom = ( p =="you"? "them": "you");
   let tower = $(`.${p}.towerChecks`).find(":checked").val();
   tower = ( typeof(tower) === "undefined" ? 0 : tower );
   let heroObj = yank_hero_obj( yank_hero_ID(p) );
   let armor_base = parseFloat(heroObj.ArmorPhysical);
   let armor_bonus_tower = ( tower == "0" ? 0 : tower == "1" ? 2 : 3 );
   let armor_bonus_obj = calc_special_bonus( find_items_special(p) ).armor;
+  let itemOtherBonusObj = calc_special_bonus( find_items_special(otherWhom) );
   let armor_bonus = 0;
-  for (let o in armor_bonus_obj) armor_bonus += armor_bonus_obj[o];
+  for (let o in armor_bonus_obj) {
+    if (o != "corruption_armor") {
+      armor_bonus += armor_bonus_obj[o];
+    }
+  };
+  armor_bonus += itemOtherBonusObj.armor.corruption_armor;
   let agi = yank_current_attrs(p)[1];
   let armor_agi = (yank_current_attrs(p)[1])/6;
   return [( armor_base + armor_agi ).toFixed(3), ( armor_bonus_tower + armor_bonus ).toFixed(2)];
@@ -48,7 +55,6 @@ function calc_level_stats(heroID, level) {
 
 
 function calc_special_bonus(specialObj) {
-  // SpecialObj = { item1: { count: [1..6], special: [special_array] }, item2: {} }
 
   function special_bonus_stat_chomper(values) {
     ATTRS.forEach(function(a,i) {
@@ -60,30 +66,38 @@ function calc_special_bonus(specialObj) {
     return values;
   }
 
-  let RELEVANTBONUSES = {
-    armor: {bonus_armor: 0, armor_aura: 0},
+  let uniqueBonuses = {"corruption_armor": true};
+  let relevantBonuses = {
+    armor: {bonus_armor: 0, aura_armor: 0, corruption_armor: 0},
     dmg: {bonus_damage: 0, bonus_attack_speed: 0},
     stats: {bonus_strength: 0, bonus_agility: 0, bonus_intellect: 0, bonus_all_stats: 0}
   };
   var bonus_values = new Object;
   var store_values = new Object;
 
+  // SpecialObj = { item1: { count: [1..6], special: [special_array] }, item2: {} }
   for (let item in specialObj) {
     specialObj[item].special.forEach( function(o,i) {
       let bonus_name = Object.keys(o)[0];
       let bonusObj = specialObj[item].special[i];
-      store_values.hasOwnProperty(bonus_name) ?
-        store_values[bonus_name] += (bonusObj[bonus_name]*specialObj[item].count)
-      : store_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count);
+      if (uniqueBonuses.hasOwnProperty(bonus_name)) {
+        store_values.hasOwnProperty(bonus_name) ?
+          store_values[bonus_name] += (bonusObj[bonus_name])
+        : store_values[bonus_name] = (bonusObj[bonus_name]);
+      } else {
+        store_values.hasOwnProperty(bonus_name) ?
+          store_values[bonus_name] += (bonusObj[bonus_name]*specialObj[item].count)
+        : store_values[bonus_name] = (bonusObj[bonus_name]*specialObj[item].count);
+      };
     });
   };
   store_values = special_bonus_stat_chomper(store_values);
-  for (let cat in RELEVANTBONUSES) {
-    for (let bon in RELEVANTBONUSES[cat]) {
-      RELEVANTBONUSES[cat][bon] = ( store_values[bon] ? store_values[bon] : 0 )
+  for (let cat in relevantBonuses) {
+    for (let bon in relevantBonuses[cat]) {
+      relevantBonuses[cat][bon] = ( store_values[bon] ? store_values[bon] : 0 )
     };
   };
-  return RELEVANTBONUSES;
+  return relevantBonuses;
 };
 
 function calc_dps(whom) {
@@ -105,7 +119,6 @@ function calc_dps(whom) {
   });
   // is there bonus_attack_speed? yes: agi + bonus; no: agi
   let attack_speed = attrs_effective[1] + itemBonusObj.dmg.bonus_attack_speed;
-  let armor_other
   let dmg_base_options = calc_dmg_base_avg(heroObj.AttackDamageMin, heroObj.AttackDamageMax);
   let dmg_base = randomDMG? dmg_base_options[1] : dmg_base_options[0];
   let dmg_bonus_percent;
