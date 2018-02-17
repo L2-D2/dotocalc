@@ -1,6 +1,7 @@
 var HEROES, ITEMS, YOU, THEM;
 var HEROJSONURL = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json";
 var ITEMJSONURL = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/items.json";
+var RESPONSES = find_JSON("json/responses.json")
 
 const PLAYERS = ["you", "them"];
 const PLAYER_DICT = {
