@@ -1,7 +1,6 @@
-var HEROES, ITEMS, YOU, THEM;
+var HEROES, ITEMS, YOU, THEM, RESPONSES;
 var HEROJSONURL = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/npc_heroes.json";
 var ITEMJSONURL = "https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/npc/items.json";
-var RESPONSES = find_JSON("json/responses.json")
 
 const PLAYERS = ["you", "them"];
 const PLAYER_DICT = {
@@ -164,6 +163,11 @@ function makeSliders(p) {
   });
   $(`#${p}Level`).val(1);
 };
+
+$.when(find_JSON("json/responses.json")).done(function(i) {
+  RESPONSES = JSON.parse(i[0]);
+  console.log(RESPONSES.general[4]);
+})
 
 $.when(find_JSON(HEROJSONURL), find_JSON(ITEMJSONURL)).done(function(h,i) {
   HEROES = JSON.parse(h[0]);
