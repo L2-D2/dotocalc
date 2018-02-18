@@ -66,7 +66,7 @@ function calc_special_bonus(specialObj) {
     return values;
   }
 
-  let uniqueBonuses = {"corruption_armor": true};
+  let uniqueBonuses = {"corruption_armor": true, "aura_armor": true};
   let relevantBonuses = {
     armor: {bonus_armor: 0, aura_armor: 0, corruption_armor: 0},
     dmg: {bonus_damage: 0, bonus_attack_speed: 0},
