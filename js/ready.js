@@ -128,10 +128,10 @@ function makeItemOptions() {
 function makeItemSelects(whom) {
   $(".itemSpot."+whom).append('<span class="row"></span>');
   for (let i = 0; i < 6; i++) {
-    $(`.itemSpot.${whom}`).children().append(`<span id="${whom}item${i}" class="row"></span>`);
+    $(`.itemSpot.${whom}`).children().append(`<div id="${whom}item${i}" class="col"></div>`);
     $(`#${whom}item${i}`)
-      .append(`<div class="itemSpotChild${i} col ${whom}"></div>`)
-      .append(`<div id="${whom}itemSpecialList${i}" class="col justify-content-center box"></div>`);
+      .append(`<span class="itemSpotChild${i} row justify-content-center ${whom}"></span>`)
+      .append(`<span id="${whom}itemSpecialList${i}" class="itemSpecialList row justify-content-center box"></span>`);
     $(`.itemSpotChild${i}.${whom}`).append(`<select id="${whom}itemID${i}" class="itemDrop ${whom}"></select>`)
   };
 };

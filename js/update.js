@@ -21,6 +21,19 @@ function updateAttrIcons(whom) {
   $(spot).find(`img.${attrPrime}Icon`).attr("src", `assets/40px-${ATTR_DICT[attrPrime][1]}_primary_attribute_symbol.png`);
 }
 
+function updateItemSpecial(whom) {
+  for (var i = 0; i < 6; i++) {
+    let spot = `#${whom}itemSpecialList${i}`;
+    $(spot).empty();
+    let itemID = $(`#${whom}itemID${i}`).val();
+    let itemsSpecial = find_items_special(whom);
+    itemsSpecial[itemID].special.forEach(function(bonus) {
+      let bonus_name = Object.keys(bonus)[0];
+      $(spot).append(`<p>${bonus_name}: ${bonus[bonus_name]}</p><br>`);
+    });
+  }
+}
+
 function dpsButton(whom) {
     $("#randomDMG").prop("checked", false);
     updateDPS(whom);
@@ -63,6 +76,7 @@ function updateEverything() {
   PLAYERS.forEach(function(p) {
     updateAttrs(p);
     updateArmor(p);
+    updateItemSpecial(p);
     updateDPS(p)
   });
 }
