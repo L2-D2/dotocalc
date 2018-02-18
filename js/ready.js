@@ -126,12 +126,14 @@ function makeItemOptions() {
 };
 
 function makeItemSelects(whom) {
-  $(".itemSpot."+whom).append('<div class="row"></div>');
+  $(".itemSpot."+whom).append('<span class="row"></span>');
   for (let i = 0; i < 6; i++) {
-    $(`.itemSpot.${whom}`).children().append(`<div class="itemSpotChild col ${whom}"></div>`);
+    $(`.itemSpot.${whom}`).children().append(`<span id="${whom}item${i}" class="row"></span>`);
+    $(`#${whom}item${i}`)
+      .append(`<div class="itemSpotChild${i} col ${whom}"></div>`)
+      .append(`<div id="${whom}itemSpecialList${i}" class="col justify-content-center box"></div>`);
+    $(`.itemSpotChild${i}.${whom}`).append(`<select id="${whom}itemID${i}" class="itemDrop ${whom}"></select>`)
   };
-  $(`.itemSpotChild.${whom}`).append(`<select class="itemDrop ${whom}"></select>`);
-
 };
 
 function makeArmorText(whom) {
