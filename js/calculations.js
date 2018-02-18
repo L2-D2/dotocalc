@@ -67,7 +67,7 @@ function calc_special_bonus(specialObj) {
   }
 
   let uniqueBonuses = {"corruption_armor": true, "aura_armor": true};
-  let relevantBonuses = {
+  let relevantBonusTotals = {
     armor: {bonus_armor: 0, aura_armor: 0, corruption_armor: 0},
     dmg: {bonus_damage: 0, bonus_attack_speed: 0},
     stats: {bonus_strength: 0, bonus_agility: 0, bonus_intellect: 0, bonus_all_stats: 0}
@@ -92,12 +92,12 @@ function calc_special_bonus(specialObj) {
     });
   };
   store_values = special_bonus_stat_chomper(store_values);
-  for (let cat in relevantBonuses) {
-    for (let bon in relevantBonuses[cat]) {
-      relevantBonuses[cat][bon] = ( store_values[bon] ? store_values[bon] : 0 )
+  for (let cat in relevantBonusTotals) {
+    for (let bon in relevantBonusTotals[cat]) {
+      relevantBonusTotals[cat][bon] = ( store_values[bon] ? store_values[bon] : 0 )
     };
   };
-  return relevantBonuses;
+  return relevantBonusTotals;
 };
 
 function calc_dps(whom) {
