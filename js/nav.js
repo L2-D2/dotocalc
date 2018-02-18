@@ -17,6 +17,9 @@ function makeNavbar() {
     $("#navlist").append(
       `<li class="nav-item">
         <label class="nav-link" for="randomDMG"><input type="checkbox" id="randomDMG" checked>Non-Random DMG?</label>
+      </li>
+      <li>
+        <label class="nav-link" for="toggleItemStats"><input type="checkbox" id="toggleItemStats">Item stats?</label>
       </li>`
     );
   };

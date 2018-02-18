@@ -112,12 +112,16 @@ function START() {
     $(`input.${i}Radio`).change( function(e) {
       updateEverything();
     });
-    $("#randomDMG").change( function(e) {
-      updateEverything();
-    });
     updateAttrs(i);
     updateAttrIcons(i);
+  });
+  $("#randomDMG").change( function(e) {
     updateEverything();
   });
+  $("#toggleItemStats").change( function() {
+    $(".itemSpecialList").slideToggle("fast")
+  });
+  $(".itemSpecialList").slideToggle("fast");
+  updateEverything();
   defaultLC();
 };

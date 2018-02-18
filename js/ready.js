@@ -68,7 +68,7 @@ function makeSkeleton(whom) {
           <div id="${whom}LevelSlider" class="${whom} lvlSlider"></div>
         </span>`)
       .append(`<span><h3>Pick ${whomPossessive} Items!</h3></span>`)
-      .append(`<span class="${whom} itemSpot"></span>`)
+      .append(`<span class="${whom} itemSpot row"></span>`)
       .append(`<span>Pocket Riki? <input type="checkbox"></input></span>`)
       .append(`<span class="row ${whom} dpsRow vertAlign justify-content-center">`);
   $(`.${whom}.dpsRow`) // dps row
@@ -126,12 +126,14 @@ function makeItemOptions() {
 };
 
 function makeItemSelects(whom) {
-  $(".itemSpot."+whom).append('<span class="row"></span>');
   for (let i = 0; i < 6; i++) {
-    $(`.itemSpot.${whom}`).children().append(`<div id="${whom}item${i}" class="col"></div>`);
+    $(`.itemSpot.${whom}`).append(`<div id="${whom}item${i}" class="col"></div>`);
     $(`#${whom}item${i}`)
       .append(`<span class="itemSpotChild${i} row justify-content-center ${whom}"></span>`)
       .append(`<span id="${whom}itemSpecialList${i}" class="itemSpecialList row justify-content-center box"></span>`);
+    if (i == 2) {
+      $(`.itemSpot.${whom}`).append('<span class="w-100"></span>');
+    };
     $(`.itemSpotChild${i}.${whom}`).append(`<select id="${whom}itemID${i}" class="itemDrop ${whom}"></select>`)
   };
 };
